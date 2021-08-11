@@ -3,7 +3,7 @@ import RealmSwift
 
 class Model: Object {
     @objc dynamic var id = UUID().uuidString
-    @objc dynamic var condition = false
+    @objc dynamic var task = ""
     @objc dynamic var task2 = ""
     @objc dynamic var task3 = ""
     @objc dynamic var pick1 = 0
@@ -13,7 +13,7 @@ class Model: Object {
 
 struct ContentViewCellModel {
     let id: String
-    let condition : Bool
+    let task: String
     let task2: String
     let task3: String
     let pick1: Int
@@ -29,7 +29,7 @@ class viewModel: ObservableObject {
 
     init() {
         token = myModelResults?.observe { [weak self] _ in
-            self?.cellModels = self?.myModelResults?.map {ContentViewCellModel(id: $0.id, condition: $0.condition, task2: $0.task2, task3: $0.task3, pick1: $0.pick1, isON: $0.isON, date: $0.date) } ?? []
+            self?.cellModels = self?.myModelResults?.map { ContentViewCellModel(id: $0.id, task: $0.task, task2: $0.task2, task3: $0.task3, pick1: $0.pick1, isON: $0.isON, date: $0.date) } ?? []
         }
     }
     
@@ -38,20 +38,7 @@ class viewModel: ObservableObject {
     }
 }
     
-struct EnterView: View {
-    
-    @ObservedObject var keyboard = KeyboardObserver()
-    @State var Cells = ["1","2","3","4","5","6"]
-    @State var capacity = 200
-    @State var condition = false
-    @State var cells: Int = 0
-    @State var otherInfo = ""
-    @State var batteryNo = ""
-    @State var toSavelipo = false
-    @State var isSaved = false
-    @State var buyDate = Date()
-    @State var useDate = Date()
-    @Environment(\.managedObjectContext) var viewContext
+struct EnterViewOld: View {
     
     @ObservedObject var profile = UserProfile()
     @ObservedObject var model = viewModel()
@@ -82,124 +69,9 @@ struct EnterView: View {
         }
     
     var body: some View {
-
+ 
         NavigationView{
-            VStack {
-                Text("バッテリー管理情報入力画面").font(.title2)
-                HStack{
-                Toggle(isOn: $condition) {
-                    Text("Best Condition Battery")
-                }}.padding(.horizontal, 20.0)
-            VStack{
-                Picker(selection: $cells,
-                       label: Text("Ice cream topping")) {
-                    ForEach(0 ..< Cells.count) {
-                        Text(LocalizedStringKey(Cells[$0]))
-                    }
-                }.pickerStyle(SegmentedPickerStyle())
-                
-                Stepper(value: $capacity ,in: 10...6000, step: 10) {
-                    Text("Battery Capacity : \(capacity)mAh" )
-                }
-                Stepper(value: $capacity  ,in: 10...6000, step: 100) {
-                    Text("( Step : 100mAh )")
-                }
-                Stepper(value: $capacity  ,in: 10...6000, step: 1000) {
-                    Text("( Step : 1000mAh )")
-                }
-                DatePicker(selection: $buyDate, displayedComponents: .date,
-                           label: {Text("購入日時 (purchase date)")} )
-                DatePicker(selection: $useDate, displayedComponents: .date,
-                           label: {Text("使用開始 (Start date of use)")} )
-                HStack{
-                    Text("Battery No.")
-                    TextField("Battery No.", text: $batteryNo)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                }
-                TextField("Other info", text: $otherInfo)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                Divider()
-                Button(action: {
-                    if self.batteryNo == "" {
-                        self.alert = false
-                        self.alert1.toggle()
-                    }else{
-                        self.alert1.toggle()
-                        self.toSave = true
-        //-書き込み--------------------------
-                        let models = lipo.Model()
-                        models.condition = condition
-                        models.task2 = task2
-                        
-                        if pick1 == 0 {
-                            models.task3 = profile.username
-                        } else if pick1 == 1 {
-                            models.task3 = profile.username2
-                        } else {
-                            models.task3 = profile.username3
-                        }
-
-                        models.pick1 = pick1
-                        models.isON = isON
-                        models.date = date
-                        let realm = try? Realm()
-                        try? realm?.write {
-                             realm?.add(models)
-                        let Results = realm?.objects(Model.self).sorted(byKeyPath: "date", ascending: true)
-                            realm?.add(Results!)
-                        }
-        //-書き込み--------------------------
-                        self.alert = true
-                        }
-                }){
-            Text("Save")
-                }
-                .padding()
-                .alert(isPresented: $alert1) {
-                    switch(alert) {
-                        case false:
-                         return
-                            Alert(title: Text("注意"),
-                             message: Text("[BatteryNo.]を入力してください"),
-                             dismissButton: .default(Text("OK")))
-                        case true:
-                         return
-                            Alert(title: Text("確認"),
-                                  message: Text("Battery No.[ \(batteryNo) ]を登録しました。"),
-                            dismissButton: .default(Text("OK"),
-                            action: {
-                                condition = false
-                                batteryNo = ""
-                                isON = false
-                                self.presentationMode.wrappedValue.dismiss()
-                            }))
-                     }
-                }
-            }.padding()
-                
-            Spacer().alert(isPresented: $toSavelipo) {
-                Alert(
-                    title: Text("登録しますか？"),
-                    primaryButton: .default(Text("はい"),
-                                            action: {(
-                                            )}),
-                    secondaryButton: .cancel(Text("いいえ")))
-            }
-            Spacer().alert(isPresented: $isSaved) {
-                Alert(title: Text("Message"),
-                      message: Text("The order was saved successfully."),
-                      dismissButton: .default(Text("OK")))
-            }
-        }.onAppear{
-            self.keyboard.addObserver()
-        }.onDisappear{
-            self.keyboard.removeObserver()
-        }.padding(.bottom, keyboard.keyboardHeight)
-
-                
-            
-            
-            ZStack{
+                ZStack{
                     backGroundColor.edgesIgnoringSafeArea(.all)
                     Form {
                         Section(header: Text("バッテリー管理情報入力画面")) {
@@ -249,7 +121,7 @@ struct EnterView: View {
                                     self.toSave = true
                     //-書き込み--------------------------
                                     let models = lipo.Model()
-                                    models.condition = condition
+                                    models.task = task
                                     models.task2 = task2
                                     
                                     if pick1 == 0 {
@@ -303,10 +175,10 @@ struct EnterView: View {
                 }.navigationBarTitle("")
                 }}
         }
-    }
+}
 
-struct EnterView_Previews: PreviewProvider {
+struct EnterViewOld_Previews: PreviewProvider {
     static var previews: some View {
-        EnterView()
+        EnterViewOld()
     }
 }

@@ -6,7 +6,7 @@ import RealmSwift
 struct EditView: View {
     @ObservedObject var profile = UserProfile()
     @Environment(\.presentationMode) var presentation
-    @Binding var task: String
+    @Binding var condition: Bool
     @Binding var task2: String
     @Binding var task3: String
     @Binding var date: Date
@@ -17,6 +17,7 @@ struct EditView: View {
     @State private var alert = false
     @State private var alert1 = false
     @State private var sentakusi = ""
+    @State private var batteryNo = ""
 
     var dateFormat: DateFormatter {
         let dformat = DateFormatter()
@@ -33,7 +34,7 @@ struct EditView: View {
             backGroundColor.edgesIgnoringSafeArea(.all)
             Form {
                 Section(header: Text("Title & Doの入力")) {
-                    TextField("[タイトル]を入力してください", text: $task)
+                    TextField("[タイトル]を入力してください", text: $task2)
                     TextField("[内容]を入力してください", text: $task2)
                     DatePicker(selection: $date, displayedComponents: .date,label: {Text("登録日時")} )
                     HStack {
@@ -59,7 +60,7 @@ struct EditView: View {
                     HStack{
                         Spacer()
                         Button(action: {
-                            if self.task == "" {
+                            if self.batteryNo == "" {
                                 self.alert = false
                                 self.alert1.toggle()
                             }else{
@@ -72,7 +73,7 @@ struct EditView: View {
                                 let results = realm.objects(Model.self).filter(predicate).first
                                 try! realm.write {
                                     results?.date = date
-                                    results?.task = task
+                                    results?.condition = condition
                                     results?.task2 = task2
                                     results?.pick1 = pick1
                                     
@@ -103,10 +104,10 @@ struct EditView: View {
                                 case true:
                                  return
                                     Alert(title: Text("確認"),
-                                          message: Text("タイトル[\(task)]の内容を更新しました。"),
+                                          message: Text("タイトル[\(task2)]の内容を更新しました。"),
                                     dismissButton: .default(Text("OK"),
                                     action: {
-                                        task = ""
+                                        condition = false
                                         task2 = ""
                                         task3 = ""
                                         isON = false

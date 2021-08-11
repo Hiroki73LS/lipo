@@ -1,5 +1,6 @@
 import SwiftUI
 import RealmSwift
+
 struct NavigationConfigurator: UIViewControllerRepresentable {
     var configure: (UINavigationController) -> Void = { _ in }
     func makeUIViewController(context: UIViewControllerRepresentableContext<NavigationConfigurator>) -> UIViewController {
@@ -11,16 +12,17 @@ struct NavigationConfigurator: UIViewControllerRepresentable {
         }
     }
 }
+
 struct ContentView: View {
     @ObservedObject var profile = UserProfile()
     @ObservedObject var model = viewModel()
     @State private var idDetail = ""
-    @State private var taskDetail = ""
-    @State private var task2Detail = ""
-    @State private var task3Detail = ""
-    @State private var pickname1Detail = ""
-    @State private var pickname2Detail = ""
-    @State private var pickname3Detail = ""
+    @State private var taskDetail : String = ""
+    @State private var task2Detail : String = ""
+    @State private var task3Detail : String = ""
+    @State private var pickname1Detail : String = ""
+    @State private var pickname2Detail : String = ""
+    @State private var pickname3Detail : String = ""
     @State private var dateDetail = Date()
     @State private var isONDetail = false
     @State private var pick1Detail = 0
@@ -40,21 +42,21 @@ struct ContentView: View {
     let backGroundColor = LinearGradient(gradient: Gradient(colors: [Color.white, Color.green]), startPoint: .top, endPoint: .bottom)
     
     init() {
-            UITableView.appearance().backgroundColor = .clear
-            UITableViewCell.appearance().backgroundColor = .clear
-        }
+        UITableView.appearance().backgroundColor = .clear
+        UITableViewCell.appearance().backgroundColor = .clear
+    }
     
     var body: some View {
         NavigationView {
-        ZStack{
-            backGroundColor.edgesIgnoringSafeArea(.all)
-            VStack{
+            ZStack{
+                backGroundColor.edgesIgnoringSafeArea(.all)
+                VStack{
                     List{
                         ForEach(model.cellModels, id: \.id) {
-                                cellModel in
+                            cellModel in
                             Button(action: {
                                 idDetail = cellModel.id
-                                taskDetail = cellModel.task
+                                taskDetail = cellModel.condition
                                 task2Detail = cellModel.task2
                                 task3Detail = cellModel.task3
                                 pick1Detail = cellModel.pick1
@@ -64,14 +66,14 @@ struct ContentView: View {
                                 isONDetail = cellModel.isON
                                 dateDetail = cellModel.date
                                 self.showAlert = true
-                                            }, label: {
-                                                
-                            NavigationLink(destination: EditView(task: $taskDetail, task2: $task2Detail, task3: $task3Detail, date: $dateDetail, isON: $isONDetail, pick1: $pick1Detail), isActive: $showAlert) {
+                            }, label: {
+
+                                NavigationLink(destination: EditView(condition: $taskDetail, task2: $task2Detail, task3: $task3Detail, date: $dateDetail, isON: $isONDetail, pick1: $pick1Detail), isActive: $showAlert) {
                                     HStack{
                                         VStack(alignment:.leading) {
-                                                Text(cellModel.task)
+                                            Text(cellModel.condition)
                                                 .font(.title)
-                                                Spacer()
+                                            Spacer()
                                             VStack{
                                                 HStack{
                                                     Text(cellModel.task2)
@@ -80,7 +82,7 @@ struct ContentView: View {
                                                 }
                                                 HStack{
                                                     Text(cellModel.task3)
-                                                    .foregroundColor(Color.gray)
+                                                        .foregroundColor(Color.gray)
                                                     Spacer()
                                                     Text(dateFormat.string(from: cellModel.date))
                                                 }
@@ -92,64 +94,66 @@ struct ContentView: View {
                                                 .foregroundColor(.pink)
                                                 .onTapGesture {
                                                     try? Realm().write {
-//                                                        cellModel.isON = false
+                                                        //                                                        cellModel.isON = false
                                                     }}
                                         } else {
                                             Image(systemName: "heart.circle.fill")
                                                 .foregroundColor(.secondary)
                                                 .onTapGesture {
                                                     try? Realm().write {
-//                                                        cellModel.isON = true
+                                                        //                                                        cellModel.isON = true
                                                     }}
                                         }
                                     }
-                            }.listRowBackground(Color.clear)
+                                }.listRowBackground(Color.clear)
                             }).background(Color.clear)
                         }
                         .onDelete { indexSet in
                             let realm = try? Realm()
                             let index = indexSet.first
                             let target = realm?.objects(Model.self).filter("id = %@", self.model.cellModels[index!].id).first
-                                print(target!)
-                                try? realm?.write {
+                            print(target!)
+                            try? realm?.write {
                                 realm?.delete(target!)
-                                                }
-                                            }
+                            }
+                        }
                         .listRowBackground(Color.clear)
-                     }
-            }
-            .background(NavigationConfigurator { nc in
-             nc.navigationBar.barTintColor = #colorLiteral(red: 0.9033463001, green: 0.9756388068, blue: 0.9194290638, alpha: 1)
-             nc.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
-            })
-            }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(leading:
-            Button(action: {
-                    self.isShown2 = true
-            }) {
-           Image(systemName: "gearshape")
-            .padding()
-            .background(Color.clear)
-            } .sheet(isPresented: self.$isShown2) {
-                //モーダル遷移した後に表示するビュー
-                Setting()
-            },
-            trailing:
-            HStack {
-                Button(action: {
-                    self.isShown = true
-                }) {
-                    Image(systemName: "square.and.pencil")
-                        .padding()
-                        .background(Color.clear)
-                } .sheet(isPresented: self.$isShown) {
-                    //モーダル遷移した後に表示するビュー
-                    EnterView()
+                    }
                 }
-            })
+                .background(NavigationConfigurator { nc in
+                    nc.navigationBar.barTintColor = #colorLiteral(red: 0.9033463001, green: 0.9756388068, blue: 0.9194290638, alpha: 1)
+                    nc.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
+                })
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(leading:
+                                    Button(action: {
+                                        self.isShown2 = true
+                                    }) {
+                                        Image(systemName: "gearshape")
+                                            .padding()
+                                            .background(Color.clear)
+                                    } .sheet(isPresented: self.$isShown2) {
+                                        //モーダル遷移した後に表示するビュー
+                                        Setting()
+                                    },
+                                trailing:
+                                    HStack {
+                                        Button(action: {
+                                            self.isShown = true
+                                        }) {
+                                            Image(systemName: "square.and.pencil")
+                                                .padding()
+                                                .background(Color.clear)
+                                        } .sheet(isPresented: self.$isShown) {
+                                            //モーダル遷移した後に表示するビュー
+                                            EnterView()
+                                        }
+                                    })
         }
-}}
+    }
+}
+
 
 func rowRemove(offsets: IndexSet) {
     let ttt = "AAA"
