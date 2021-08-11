@@ -17,7 +17,7 @@ struct ContentView: View {
     @ObservedObject var profile = UserProfile()
     @ObservedObject var model = viewModel()
     @State private var idDetail = ""
-    @State private var taskDetail : String = ""
+    @State private var taskDetail : Bool = false
     @State private var task2Detail : String = ""
     @State private var task3Detail : String = ""
     @State private var pickname1Detail : String = ""
@@ -71,7 +71,8 @@ struct ContentView: View {
                                 NavigationLink(destination: EditView(condition: $taskDetail, task2: $task2Detail, task3: $task3Detail, date: $dateDetail, isON: $isONDetail, pick1: $pick1Detail), isActive: $showAlert) {
                                     HStack{
                                         VStack(alignment:.leading) {
-                                            Text(cellModel.condition)
+//                                            Text(cellModel.condition)
+                                            Text("12345")
                                                 .font(.title)
                                             Spacer()
                                             VStack{
@@ -86,8 +87,7 @@ struct ContentView: View {
                                                     Spacer()
                                                     Text(dateFormat.string(from: cellModel.date))
                                                 }
-                                            }
-                                            .padding(0.0)
+                                            }.padding(0.0)
                                         }
                                         if cellModel.isON == true {
                                             Image(systemName: "heart.circle.fill")
