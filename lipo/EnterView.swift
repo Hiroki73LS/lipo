@@ -7,24 +7,22 @@ class Model: Object {
     @objc dynamic var btcapa = 0
     @objc dynamic var batteryNo = ""
     @objc dynamic var otherInfo = ""
-    @objc dynamic var pick1 = 0
     @objc dynamic var isON = false
-    @objc dynamic var date = Date()
     @objc dynamic var buyDate = Date()
     @objc dynamic var useDate = Date()
+    @objc dynamic var cells = 0
 }
 
 struct ContentViewCellModel {
     let id: String
     let condition : Bool
-    let btcapa: Int
-    let batteryNo: String
-    let otherInfo: String
-    let pick1: Int
-    var isON: Bool
-    let date: Date
-    let buyDate: Date
-    let useDate: Date
+    let btcapa : Int
+    let batteryNo : String
+    let otherInfo : String
+    var isON : Bool
+    let buyDate : Date
+    let useDate : Date
+    let cells : Int
 }
 
 class viewModel: ObservableObject {
@@ -35,7 +33,7 @@ class viewModel: ObservableObject {
 
     init() {
         token = myModelResults?.observe { [weak self] _ in
-            self?.cellModels = self?.myModelResults?.map {ContentViewCellModel(id: $0.id, condition: $0.condition, btcapa: $0.btcapa, batteryNo: $0.batteryNo, otherInfo: $0.otherInfo, pick1: $0.pick1, isON: $0.isON, date: $0.date, buyDate: $0.buyDate, useDate: $0.useDate) } ?? []
+            self?.cellModels = self?.myModelResults?.map {ContentViewCellModel(id: $0.id, condition: $0.condition, btcapa: $0.btcapa, batteryNo: $0.batteryNo, otherInfo: $0.otherInfo, isON: $0.isON, buyDate: $0.buyDate, useDate: $0.useDate, cells: $0.cells) } ?? []
         }
     }
     
@@ -47,8 +45,7 @@ class viewModel: ObservableObject {
 struct EnterView: View {
     
     @ObservedObject var keyboard = KeyboardObserver()
-    @State var Cells = ["1","2","3","4","5","6"]
-    @State var cells: Int = 0
+    @State var Cellhairetu = ["1","2","3","4","5","6"]
     @State var batteryNo = ""
     @State var toSavelipo = false
     @State var isSaved = false
@@ -59,11 +56,10 @@ struct EnterView: View {
     @State private var condition = false
     @State private var btcapa = 200
     @State private var otherInfo = ""
-    @State private var date = Date()
     @State private var buyDate = Date()
     @State private var useDate = Date()
+    @State private var cells = 0
     @State private var isON = false
-    @State private var pick1 = 0
     @State private var toSave = false
     @State private var alert = false
     @State private var alert1 = false
@@ -95,9 +91,9 @@ struct EnterView: View {
                 }}.padding(.horizontal, 20.0)
             VStack{
                 Picker(selection: $cells,
-                       label: Text("Ice cream topping")) {
-                    ForEach(0 ..< Cells.count) {
-                        Text(LocalizedStringKey(Cells[$0]))
+                       label: Text("Number of Cells")) {
+                    ForEach(0 ..< Cellhairetu.count) {
+                        Text(LocalizedStringKey(Cellhairetu[$0]))
                     }
                 }.pickerStyle(SegmentedPickerStyle())
                 
@@ -143,11 +139,10 @@ struct EnterView: View {
                         models.batteryNo = batteryNo
                         models.btcapa = btcapa
                         models.otherInfo = otherInfo
-                        models.pick1 = pick1
+                        models.cells = cells
                         models.isON = isON
                         models.buyDate = buyDate
                         models.useDate = useDate
-                        models.date = date
                         let realm = try? Realm()
                         try? realm?.write {
                              realm?.add(models)

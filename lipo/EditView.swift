@@ -10,11 +10,10 @@ struct EditView: View {
     @Binding var btcapa : Int
     @Binding var batteryNo : String
     @Binding var otherInfo: String
-    @Binding var date: Date
     @Binding var buyDate: Date
     @Binding var useDate: Date
     @Binding var isON: Bool
-    @Binding var pick1: Int
+    @Binding var cells: Int
 
     @State private var toSave = false
     @State private var alert = false
@@ -38,7 +37,7 @@ struct EditView: View {
                 Section(header: Text("Title & Doの入力")) {
 //                    TextField("[タイトル]を入力してください", text: $task2)
 //                    TextField("[内容]を入力してください", text: $task2)
-                    DatePicker(selection: $date, displayedComponents: .date,label: {Text("登録日時")} )
+                    DatePicker(selection: $buyDate, displayedComponents: .date,label: {Text("登録日時")} )
                     HStack {
                         Text("お気に入り")
                         Toggle(isOn: $isON) {
@@ -63,13 +62,12 @@ struct EditView: View {
                                 
                 //-書き込み--------------------------
                                 let realm = try! Realm()
-                                let predicate = NSPredicate(format: "date == %@", date as CVarArg)
+                                let predicate = NSPredicate(format: "date == %@", buyDate as CVarArg)
                                 let results = realm.objects(Model.self).filter(predicate).first
                                 try! realm.write {
-                                    results?.date = date
                                     results?.condition = condition
                                     results?.btcapa = btcapa
-                                    results?.pick1 = pick1
+                                    results?.cells = cells
                                     results?.isON = isON
                                 }
                 //---書き込み--------------------------

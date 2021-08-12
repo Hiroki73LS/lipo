@@ -21,11 +21,10 @@ struct ContentView: View {
     @State private var btcapaDetail : Int = 0
     @State private var batteryNoDetail : String = ""
     @State private var otherInfoDetail : String = ""
-    @State private var dateDetail = Date()
     @State private var buyDateDetail = Date()
     @State private var useDateDetail = Date()
+    @State private var cellsDetail : Int = 0
     @State private var isONDetail = false
-    @State private var pick1Detail = 0
     @State private var toSave = false
     @State private var alert = false
     @State private var alert1 = false
@@ -35,7 +34,8 @@ struct ContentView: View {
     @State private var showAlert = false
     var dateFormat: DateFormatter {
         let dformat = DateFormatter()
-        dformat.dateFormat = "yyyy/M/d h:mm"
+        dformat.dateFormat = "yyyy/M/d"
+//        dformat.dateFormat = "yyyy/M/d h:mm"
         return dformat
     }
     
@@ -60,41 +60,46 @@ struct ContentView: View {
                                 btcapaDetail = cellModel.btcapa
                                 batteryNoDetail = cellModel.batteryNo
                                 otherInfoDetail = cellModel.otherInfo
-                                pick1Detail = cellModel.pick1
                                 isONDetail = cellModel.isON
-                                dateDetail = cellModel.date
+                                buyDateDetail = cellModel.buyDate
+                                useDateDetail = cellModel.useDate
+                                cellsDetail = cellModel.cells
                                 self.showAlert = true
                             }, label: {
-                                NavigationLink(destination: EditView(condition: $conditionDetail, btcapa: $btcapaDetail, batteryNo: $batteryNoDetail, otherInfo: $otherInfoDetail, date: $dateDetail, buyDate: $buyDateDetail, useDate: $useDateDetail, isON: $isONDetail, pick1: $pick1Detail), isActive: $showAlert) {
+                                NavigationLink(destination: EditView(condition: $conditionDetail, btcapa: $btcapaDetail, batteryNo: $batteryNoDetail, otherInfo: $otherInfoDetail, isON: $isONDetail, buyDate: $buyDateDetail, useDate: $useDateDetail, cells: $cellsDetail), isActive: $showAlert) {
                                     HStack{
                                         VStack(alignment:.leading) {
-//                                            Text("0000")
-                                            Text("BatteryNo.\(cellModel.batteryNo)")
-                                                .font(.title)
-                                            Spacer()
                                             VStack{
                                                 HStack{
-                                                    Text("\(cellModel.btcapa)mhA")
-                                                        .foregroundColor(Color.gray)
+                                                Text("No.\(cellModel.batteryNo)")
+                                                .font(.title)
+                                            Spacer()
+                                            Text("セル数:\(cellModel.cells)")
+                                                .font(.title)
+                                            }
+                                                HStack{
+                                                    Text("容量:\(cellModel.btcapa)mhA")
+//                                                        .foregroundColor(Color.gray)
                                                     Spacer()
+                                                    Text("購入日:\(dateFormat.string(from: cellModel.buyDate))")
                                                 }
                                                 HStack{
                                                     Text("備考:\(cellModel.otherInfo)")
-                                                        .foregroundColor(Color.gray)
+//                                                        .foregroundColor(Color.gray)
                                                     Spacer()
-                                                    Text(dateFormat.string(from: cellModel.date))
+                                                    Text("使用日:\(dateFormat.string(from: cellModel.useDate))")
                                                 }
                                             }.padding(0.0)
                                         }
                                         if cellModel.condition == true {
-                                            Image(systemName: "heart.circle.fill")
+                                            Image(systemName: "battery.100")
                                                 .foregroundColor(.pink)
                                                 .onTapGesture {
                                                     try? Realm().write {
 //                                                        cellModel.condition = false
                                                     }}
                                         } else {
-                                            Image(systemName: "heart.circle.fill")
+                                            Image(systemName: "battery.75")
                                                 .foregroundColor(.secondary)
                                                 .onTapGesture {
                                                     try? Realm().write {
