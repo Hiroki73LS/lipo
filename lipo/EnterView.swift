@@ -16,6 +16,7 @@ struct ContentViewCellModel {
     let id: String
     let condition : Bool
     let btcapa: Int
+    let batteryNo: String
     let otherInfo: String
     let pick1: Int
     var isON: Bool
@@ -30,7 +31,7 @@ class viewModel: ObservableObject {
 
     init() {
         token = myModelResults?.observe { [weak self] _ in
-            self?.cellModels = self?.myModelResults?.map {ContentViewCellModel(id: $0.id, condition: $0.condition, btcapa: $0.btcapa, otherInfo: $0.otherInfo, pick1: $0.pick1, isON: $0.isON, date: $0.date) } ?? []
+            self?.cellModels = self?.myModelResults?.map {ContentViewCellModel(id: $0.id, condition: $0.condition, btcapa: $0.btcapa, batteryNo: $0.batteryNo, otherInfo: $0.otherInfo, pick1: $0.pick1, isON: $0.isON, date: $0.date) } ?? []
         }
     }
     
@@ -195,109 +196,6 @@ struct EnterView: View {
             self.keyboard.removeObserver()
         }.padding(.bottom, keyboard.keyboardHeight)
 
-//            ZStack{
-//                    backGroundColor.edgesIgnoringSafeArea(.all)
-//                    Form {
-//                        Section(header: Text("バッテリー管理情報入力画面")) {
-//                            TextField("[バッテリー管理番号]", text: $task)
-//
-//                            Picker(selection: $profile.level, label: Text("学年")) {
-//                                            ForEach(1 ..< 7) { num in
-//                                                Text("\(num)年生")
-//                                            }
-//                                        }
-//                                        Text("選択値:\(profile.level)")
-//
-//
-//
-//                            Stepper(value: $profile.level, in: 100...6000 , step : 10) {
-//                                Text("バッテリー容量 : \(profile.level) mhA ")
-//                            }
-//                            TextField("[内容]を入力してください", text: self.$batteryNo)
-//                            DatePicker(selection: $date, displayedComponents: .date,label: {Text("登録日時")} )
-//                            HStack {
-//                                Text("お気に入り")
-//                                Toggle(isOn: $isON) {
-//                                    EmptyView()
-//                                }
-//                            }
-//                        }
-//                        Section(header: Text("定型選択肢を選択")) {
-//    //-Picker--------------------------
-//                            Picker(selection: $pick1,
-//                                   label: Text("")) {
-//                                Text("\(profile.username)").tag(0)
-//                                Text("\(profile.username2)").tag(1)
-//                                Text("\(profile.username3)").tag(2)
-//                            }.pickerStyle(SegmentedPickerStyle())
-//    //-Picker--------------------------
-//                        }
-//
-//                        Section{
-//                        HStack{
-//                            Spacer()
-//                            Button(action: {
-//                                if self.task == "" {
-//                                    self.alert = false
-//                                    self.alert1.toggle()
-//                                }else{
-//                                    self.alert1.toggle()
-//                                    self.toSave = true
-//                    //-書き込み--------------------------
-//                                    let models = lipo.Model()
-//                                    models.condition = condition
-//                                    models.task2 = task2
-//
-//                                    if pick1 == 0 {
-//                                        models.task3 = profile.username
-//                                    } else if pick1 == 1 {
-//                                        models.task3 = profile.username2
-//                                    } else {
-//                                        models.task3 = profile.username3
-//                                    }
-//
-//                                    models.pick1 = pick1
-//                                    models.isON = isON
-//                                    models.date = date
-//                                    let realm = try? Realm()
-//                                    try? realm?.write {
-//                                         realm?.add(models)
-//                                    let Results = realm?.objects(Model.self).sorted(byKeyPath: "date", ascending: true)
-//                                        realm?.add(Results!)
-//                                    }
-//                    //-書き込み--------------------------
-//                                    self.alert = true
-//                                    }
-//                            }){
-//                        Text("確定")
-//                            }
-//                            .padding()
-//                            .alert(isPresented: $alert1) {
-//                                switch(alert) {
-//                                    case false:
-//                                     return
-//                                        Alert(title: Text("注意"),
-//                                         message: Text("[タイトル]を入力してください"),
-//                                         dismissButton: .default(Text("OK")))
-//                                    case true:
-//                                     return
-//                                        Alert(title: Text("確認"),
-//                                              message: Text("タイトル[\(task)]を登録しました。"),
-//                                        dismissButton: .default(Text("OK"),
-//                                        action: {
-//                                            task = ""
-//                                            task2 = ""
-//                                            task3 = ""
-//                                            isON = false
-//                                            self.presentationMode.wrappedValue.dismiss()
-//                                        }))
-//                                 }
-//                            }
-//                        Spacer()
-//                }
-//            }
-//                }.navigationBarTitle("")
-//                }
             }
         }
     }

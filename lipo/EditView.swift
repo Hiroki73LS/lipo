@@ -8,6 +8,7 @@ struct EditView: View {
     @Environment(\.presentationMode) var presentation
     @Binding var condition: Bool
     @Binding var btcapa : Int
+    @Binding var batteryNo : String
     @Binding var otherInfo: String
     @Binding var date: Date
     @Binding var isON: Bool
@@ -17,7 +18,6 @@ struct EditView: View {
     @State private var alert = false
     @State private var alert1 = false
     @State private var sentakusi = ""
-    @State private var batteryNo = ""
 
     var dateFormat: DateFormatter {
         let dformat = DateFormatter()

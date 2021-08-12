@@ -19,6 +19,7 @@ struct ContentView: View {
     @State private var idDetail = ""
     @State private var conditionDetail : Bool = false
     @State private var btcapaDetail : Int = 0
+    @State private var batteryNoDetail : String = ""
     @State private var otherInfoDetail : String = ""
     @State private var dateDetail = Date()
     @State private var isONDetail = false
@@ -55,17 +56,18 @@ struct ContentView: View {
                                 idDetail = cellModel.id
                                 conditionDetail = cellModel.condition
                                 btcapaDetail = cellModel.btcapa
+                                batteryNoDetail = cellModel.batteryNo
                                 otherInfoDetail = cellModel.otherInfo
                                 pick1Detail = cellModel.pick1
                                 isONDetail = cellModel.isON
                                 dateDetail = cellModel.date
                                 self.showAlert = true
                             }, label: {
-                                NavigationLink(destination: EditView(condition: $conditionDetail, btcapa: $btcapaDetail, otherInfo: $otherInfoDetail, date: $dateDetail, isON: $isONDetail, pick1: $pick1Detail), isActive: $showAlert) {
+                                NavigationLink(destination: EditView(condition: $conditionDetail, btcapa: $btcapaDetail, batteryNo: $batteryNoDetail, otherInfo: $otherInfoDetail, date: $dateDetail, isON: $isONDetail, pick1: $pick1Detail), isActive: $showAlert) {
                                     HStack{
                                         VStack(alignment:.leading) {
-//                                            Text(cellModel.condition)
-                                            Text("12345")
+//                                            Text("0000")
+                                            Text(cellModel.batteryNo)
                                                 .font(.title)
                                             Spacer()
                                             VStack{
