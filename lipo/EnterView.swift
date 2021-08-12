@@ -121,7 +121,15 @@ struct EnterView: View {
                     if self.batteryNo == "" {
                         self.alert = false
                         self.alert1.toggle()
-                    }else{
+                    } else if self.batteryNo == "000121" {
+                        print("Realm全削除")
+                        //-Realm全削除--------------------------
+//                                            let realm = try! Realm()
+//                                            try! realm.write {
+//                                                realm.deleteAll()
+//                                            }
+                        //-Realm全削除--------------------------
+                    } else {
                         self.alert1.toggle()
                         self.toSave = true
         //-書き込み--------------------------
