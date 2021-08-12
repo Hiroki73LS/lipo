@@ -8,7 +8,7 @@ struct EditView: View {
     @Environment(\.presentationMode) var presentation
     @Binding var condition: Bool
     @Binding var btcapa : Int
-    @Binding var task3: String
+    @Binding var otherInfo: String
     @Binding var date: Date
     @Binding var isON: Bool
     @Binding var pick1: Int
@@ -46,14 +46,6 @@ struct EditView: View {
                 }
                 Section(header: Text("カスタムタイプを選択")) {
                     
-                    //-Picker--------------------------
-                    Picker(selection: $pick1,
-                           label: Text("")) {
-                        Text("\(profile.username)").tag(0)
-                        Text("\(profile.username2)").tag(1)
-                        Text("\(profile.username3)").tag(2)
-                    }.pickerStyle(SegmentedPickerStyle())
-                    //-Picker--------------------------
                     
                 }
                 Section{
@@ -100,7 +92,7 @@ struct EditView: View {
                                     action: {
                                         condition = false
                                         batteryNo = ""
-                                        task3 = ""
+                                        otherInfo = ""
                                         isON = false
                                         self.presentation.wrappedValue.dismiss()
                                     }))

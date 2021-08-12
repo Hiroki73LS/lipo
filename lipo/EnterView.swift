@@ -5,6 +5,7 @@ class Model: Object {
     @objc dynamic var id = UUID().uuidString
     @objc dynamic var condition = false
     @objc dynamic var btcapa = 0
+    @objc dynamic var batteryNo = ""
     @objc dynamic var otherInfo = ""
     @objc dynamic var pick1 = 0
     @objc dynamic var isON = false
@@ -126,7 +127,9 @@ struct EnterView: View {
         //-書き込み--------------------------
                         let models = lipo.Model()
                         models.condition = condition
+                        models.batteryNo = batteryNo
                         models.btcapa = btcapa
+                        models.otherInfo = otherInfo
                         models.pick1 = pick1
                         models.isON = isON
                         models.date = date

@@ -47,7 +47,6 @@ struct ContentView: View {
         NavigationView {
             ZStack{
                 backGroundColor.edgesIgnoringSafeArea(.all)
-                Text("tetetetetetete")
                 VStack{
                     List{
                         ForEach(model.cellModels, id: \.id) {
@@ -62,44 +61,44 @@ struct ContentView: View {
                                 dateDetail = cellModel.date
                                 self.showAlert = true
                             }, label: {
-//                                NavigationLink(destination: EditView(condition: $conditionDetail, btcapa: $btcapaDetail, otherInfo: $otherInfoDetail, date: $dateDetail, isON: $isONDetail, pick1: $pick1Detail), isActive: $showAlert) {
-//                                    HStack{
-//                                        VStack(alignment:.leading) {
-////                                            Text(cellModel.condition)
-//                                            Text("12345")
-//                                                .font(.title)
-//                                            Spacer()
-//                                            VStack{
-//                                                HStack{
-//                                                    Text(cellModel.btcapa)
-//                                                        .foregroundColor(Color.gray)
-//                                                    Spacer()
-//                                                }
-//                                                HStack{
-//                                                    Text(cellModel.otherInfo)
-//                                                        .foregroundColor(Color.gray)
-//                                                    Spacer()
-//                                                    Text(dateFormat.string(from: cellModel.date))
-//                                                }
-//                                            }.padding(0.0)
-//                                        }
-//                                        if cellModel.isON == true {
-//                                            Image(systemName: "heart.circle.fill")
-//                                                .foregroundColor(.pink)
-//                                                .onTapGesture {
-//                                                    try? Realm().write {
-//                                                        //                                                        cellModel.isON = false
-//                                                    }}
-//                                        } else {
-//                                            Image(systemName: "heart.circle.fill")
-//                                                .foregroundColor(.secondary)
-//                                                .onTapGesture {
-//                                                    try? Realm().write {
-//                                                        //                                                        cellModel.isON = true
-//                                                    }}
-//                                        }
-//                                    }
-//                                }.listRowBackground(Color.clear)
+                                NavigationLink(destination: EditView(condition: $conditionDetail, btcapa: $btcapaDetail, otherInfo: $otherInfoDetail, date: $dateDetail, isON: $isONDetail, pick1: $pick1Detail), isActive: $showAlert) {
+                                    HStack{
+                                        VStack(alignment:.leading) {
+//                                            Text(cellModel.condition)
+                                            Text("12345")
+                                                .font(.title)
+                                            Spacer()
+                                            VStack{
+                                                HStack{
+                                                    Text("\(cellModel.btcapa)")
+                                                        .foregroundColor(Color.gray)
+                                                    Spacer()
+                                                }
+                                                HStack{
+                                                    Text(cellModel.otherInfo)
+                                                        .foregroundColor(Color.gray)
+                                                    Spacer()
+                                                    Text(dateFormat.string(from: cellModel.date))
+                                                }
+                                            }.padding(0.0)
+                                        }
+                                        if cellModel.isON == true {
+                                            Image(systemName: "heart.circle.fill")
+                                                .foregroundColor(.pink)
+                                                .onTapGesture {
+                                                    try? Realm().write {
+//                                                        cellModel.isON = false
+                                                    }}
+                                        } else {
+                                            Image(systemName: "heart.circle.fill")
+                                                .foregroundColor(.secondary)
+                                                .onTapGesture {
+                                                    try? Realm().write {
+//                                                        cellModel.isON = true
+                                                    }}
+                                        }
+                                    }
+                                }.listRowBackground(Color.clear)
                             }
                             ).background(Color.clear)
                         }
