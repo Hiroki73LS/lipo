@@ -7,7 +7,7 @@ struct EditView: View {
     @ObservedObject var profile = UserProfile()
     @Environment(\.presentationMode) var presentation
     @Binding var condition: Bool
-    @Binding var task2: String
+    @Binding var btcapa : Int
     @Binding var task3: String
     @Binding var date: Date
     @Binding var isON: Bool
@@ -34,8 +34,8 @@ struct EditView: View {
             backGroundColor.edgesIgnoringSafeArea(.all)
             Form {
                 Section(header: Text("Title & Doの入力")) {
-                    TextField("[タイトル]を入力してください", text: $task2)
-                    TextField("[内容]を入力してください", text: $task2)
+//                    TextField("[タイトル]を入力してください", text: $task2)
+//                    TextField("[内容]を入力してください", text: $task2)
                     DatePicker(selection: $date, displayedComponents: .date,label: {Text("登録日時")} )
                     HStack {
                         Text("お気に入り")
@@ -74,17 +74,8 @@ struct EditView: View {
                                 try! realm.write {
                                     results?.date = date
                                     results?.condition = condition
-                                    results?.task2 = task2
+                                    results?.btcapa = btcapa
                                     results?.pick1 = pick1
-                                    
-                                    if pick1 == 0 {
-                                        results?.task3 = profile.username
-                                    } else if pick1 == 1 {
-                                        results?.task3 = profile.username2
-                                    } else {
-                                        results?.task3 = profile.username3
-                                    }
-                                    
                                     results?.isON = isON
                                 }
                 //---書き込み--------------------------
@@ -104,11 +95,11 @@ struct EditView: View {
                                 case true:
                                  return
                                     Alert(title: Text("確認"),
-                                          message: Text("タイトル[\(task2)]の内容を更新しました。"),
+                                          message: Text("タイトル[\(batteryNo)]の内容を更新しました。"),
                                     dismissButton: .default(Text("OK"),
                                     action: {
                                         condition = false
-                                        task2 = ""
+                                        batteryNo = ""
                                         task3 = ""
                                         isON = false
                                         self.presentation.wrappedValue.dismiss()

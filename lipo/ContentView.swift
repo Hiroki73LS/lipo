@@ -17,12 +17,9 @@ struct ContentView: View {
     @ObservedObject var profile = UserProfile()
     @ObservedObject var model = viewModel()
     @State private var idDetail = ""
-    @State private var taskDetail : Bool = false
-    @State private var task2Detail : String = ""
-    @State private var task3Detail : String = ""
-    @State private var pickname1Detail : String = ""
-    @State private var pickname2Detail : String = ""
-    @State private var pickname3Detail : String = ""
+    @State private var conditionDetail : Bool = false
+    @State private var btcapaDetail : Int = 0
+    @State private var otherInfoDetail : String = ""
     @State private var dateDetail = Date()
     @State private var isONDetail = false
     @State private var pick1Detail = 0
@@ -50,63 +47,61 @@ struct ContentView: View {
         NavigationView {
             ZStack{
                 backGroundColor.edgesIgnoringSafeArea(.all)
+                Text("tetetetetetete")
                 VStack{
                     List{
                         ForEach(model.cellModels, id: \.id) {
                             cellModel in
                             Button(action: {
                                 idDetail = cellModel.id
-                                taskDetail = cellModel.condition
-                                task2Detail = cellModel.task2
-                                task3Detail = cellModel.task3
+                                conditionDetail = cellModel.condition
+                                btcapaDetail = cellModel.btcapa
+                                otherInfoDetail = cellModel.otherInfo
                                 pick1Detail = cellModel.pick1
-                                pickname1Detail = profile.username
-                                pickname2Detail = profile.username2
-                                pickname3Detail = profile.username3
                                 isONDetail = cellModel.isON
                                 dateDetail = cellModel.date
                                 self.showAlert = true
                             }, label: {
-
-                                NavigationLink(destination: EditView(condition: $taskDetail, task2: $task2Detail, task3: $task3Detail, date: $dateDetail, isON: $isONDetail, pick1: $pick1Detail), isActive: $showAlert) {
-                                    HStack{
-                                        VStack(alignment:.leading) {
-//                                            Text(cellModel.condition)
-                                            Text("12345")
-                                                .font(.title)
-                                            Spacer()
-                                            VStack{
-                                                HStack{
-                                                    Text(cellModel.task2)
-                                                        .foregroundColor(Color.gray)
-                                                    Spacer()
-                                                }
-                                                HStack{
-                                                    Text(cellModel.task3)
-                                                        .foregroundColor(Color.gray)
-                                                    Spacer()
-                                                    Text(dateFormat.string(from: cellModel.date))
-                                                }
-                                            }.padding(0.0)
-                                        }
-                                        if cellModel.isON == true {
-                                            Image(systemName: "heart.circle.fill")
-                                                .foregroundColor(.pink)
-                                                .onTapGesture {
-                                                    try? Realm().write {
-                                                        //                                                        cellModel.isON = false
-                                                    }}
-                                        } else {
-                                            Image(systemName: "heart.circle.fill")
-                                                .foregroundColor(.secondary)
-                                                .onTapGesture {
-                                                    try? Realm().write {
-                                                        //                                                        cellModel.isON = true
-                                                    }}
-                                        }
-                                    }
-                                }.listRowBackground(Color.clear)
-                            }).background(Color.clear)
+//                                NavigationLink(destination: EditView(condition: $conditionDetail, btcapa: $btcapaDetail, otherInfo: $otherInfoDetail, date: $dateDetail, isON: $isONDetail, pick1: $pick1Detail), isActive: $showAlert) {
+//                                    HStack{
+//                                        VStack(alignment:.leading) {
+////                                            Text(cellModel.condition)
+//                                            Text("12345")
+//                                                .font(.title)
+//                                            Spacer()
+//                                            VStack{
+//                                                HStack{
+//                                                    Text(cellModel.btcapa)
+//                                                        .foregroundColor(Color.gray)
+//                                                    Spacer()
+//                                                }
+//                                                HStack{
+//                                                    Text(cellModel.otherInfo)
+//                                                        .foregroundColor(Color.gray)
+//                                                    Spacer()
+//                                                    Text(dateFormat.string(from: cellModel.date))
+//                                                }
+//                                            }.padding(0.0)
+//                                        }
+//                                        if cellModel.isON == true {
+//                                            Image(systemName: "heart.circle.fill")
+//                                                .foregroundColor(.pink)
+//                                                .onTapGesture {
+//                                                    try? Realm().write {
+//                                                        //                                                        cellModel.isON = false
+//                                                    }}
+//                                        } else {
+//                                            Image(systemName: "heart.circle.fill")
+//                                                .foregroundColor(.secondary)
+//                                                .onTapGesture {
+//                                                    try? Realm().write {
+//                                                        //                                                        cellModel.isON = true
+//                                                    }}
+//                                        }
+//                                    }
+//                                }.listRowBackground(Color.clear)
+                            }
+                            ).background(Color.clear)
                         }
                         .onDelete { indexSet in
                             let realm = try? Realm()
@@ -156,9 +151,9 @@ struct ContentView: View {
 
 
 func rowRemove(offsets: IndexSet) {
-    let ttt = "AAA"
+    let ttt = "111"
     let realm = try! Realm()            // ① realmインスタンスの生成
-    let targetEmployee = realm.objects(Model.self).filter("task == %@", ttt)  // ② 削除したいデータを検索する
+    let targetEmployee = realm.objects(Model.self).filter("batteryNo == %@", ttt)  // ② 削除したいデータを検索する
     
     print(targetEmployee)
     do{                                 // ③ 部署を更新する
