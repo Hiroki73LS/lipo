@@ -10,6 +10,8 @@ class Model: Object {
     @objc dynamic var pick1 = 0
     @objc dynamic var isON = false
     @objc dynamic var date = Date()
+    @objc dynamic var buyDate = Date()
+    @objc dynamic var useDate = Date()
 }
 
 struct ContentViewCellModel {
@@ -21,6 +23,8 @@ struct ContentViewCellModel {
     let pick1: Int
     var isON: Bool
     let date: Date
+    let buyDate: Date
+    let useDate: Date
 }
 
 class viewModel: ObservableObject {
@@ -31,7 +35,7 @@ class viewModel: ObservableObject {
 
     init() {
         token = myModelResults?.observe { [weak self] _ in
-            self?.cellModels = self?.myModelResults?.map {ContentViewCellModel(id: $0.id, condition: $0.condition, btcapa: $0.btcapa, batteryNo: $0.batteryNo, otherInfo: $0.otherInfo, pick1: $0.pick1, isON: $0.isON, date: $0.date) } ?? []
+            self?.cellModels = self?.myModelResults?.map {ContentViewCellModel(id: $0.id, condition: $0.condition, btcapa: $0.btcapa, batteryNo: $0.batteryNo, otherInfo: $0.otherInfo, pick1: $0.pick1, isON: $0.isON, date: $0.date, buyDate: $0.buyDate, useDate: $0.useDate) } ?? []
         }
     }
     
@@ -48,8 +52,6 @@ struct EnterView: View {
     @State var batteryNo = ""
     @State var toSavelipo = false
     @State var isSaved = false
-    @State var buyDate = Date()
-    @State var useDate = Date()
     @Environment(\.managedObjectContext) var viewContext
     
     @ObservedObject var profile = UserProfile()
@@ -58,6 +60,8 @@ struct EnterView: View {
     @State private var btcapa = 200
     @State private var otherInfo = ""
     @State private var date = Date()
+    @State private var buyDate = Date()
+    @State private var useDate = Date()
     @State private var isON = false
     @State private var pick1 = 0
     @State private var toSave = false
@@ -141,6 +145,8 @@ struct EnterView: View {
                         models.otherInfo = otherInfo
                         models.pick1 = pick1
                         models.isON = isON
+                        models.buyDate = buyDate
+                        models.useDate = useDate
                         models.date = date
                         let realm = try? Realm()
                         try? realm?.write {

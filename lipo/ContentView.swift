@@ -22,6 +22,8 @@ struct ContentView: View {
     @State private var batteryNoDetail : String = ""
     @State private var otherInfoDetail : String = ""
     @State private var dateDetail = Date()
+    @State private var buyDateDetail = Date()
+    @State private var useDateDetail = Date()
     @State private var isONDetail = false
     @State private var pick1Detail = 0
     @State private var toSave = false
@@ -63,40 +65,40 @@ struct ContentView: View {
                                 dateDetail = cellModel.date
                                 self.showAlert = true
                             }, label: {
-                                NavigationLink(destination: EditView(condition: $conditionDetail, btcapa: $btcapaDetail, batteryNo: $batteryNoDetail, otherInfo: $otherInfoDetail, date: $dateDetail, isON: $isONDetail, pick1: $pick1Detail), isActive: $showAlert) {
+                                NavigationLink(destination: EditView(condition: $conditionDetail, btcapa: $btcapaDetail, batteryNo: $batteryNoDetail, otherInfo: $otherInfoDetail, date: $dateDetail, buyDate: $buyDateDetail, useDate: $useDateDetail, isON: $isONDetail, pick1: $pick1Detail), isActive: $showAlert) {
                                     HStack{
                                         VStack(alignment:.leading) {
 //                                            Text("0000")
-                                            Text(cellModel.batteryNo)
+                                            Text("BatteryNo.\(cellModel.batteryNo)")
                                                 .font(.title)
                                             Spacer()
                                             VStack{
                                                 HStack{
-                                                    Text("\(cellModel.btcapa)")
+                                                    Text("\(cellModel.btcapa)mhA")
                                                         .foregroundColor(Color.gray)
                                                     Spacer()
                                                 }
                                                 HStack{
-                                                    Text(cellModel.otherInfo)
+                                                    Text("備考:\(cellModel.otherInfo)")
                                                         .foregroundColor(Color.gray)
                                                     Spacer()
                                                     Text(dateFormat.string(from: cellModel.date))
                                                 }
                                             }.padding(0.0)
                                         }
-                                        if cellModel.isON == true {
+                                        if cellModel.condition == true {
                                             Image(systemName: "heart.circle.fill")
                                                 .foregroundColor(.pink)
                                                 .onTapGesture {
                                                     try? Realm().write {
-//                                                        cellModel.isON = false
+//                                                        cellModel.condition = false
                                                     }}
                                         } else {
                                             Image(systemName: "heart.circle.fill")
                                                 .foregroundColor(.secondary)
                                                 .onTapGesture {
                                                     try? Realm().write {
-//                                                        cellModel.isON = true
+//                                                        cellModel.condition = true
                                                     }}
                                         }
                                     }

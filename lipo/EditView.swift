@@ -11,6 +11,8 @@ struct EditView: View {
     @Binding var batteryNo : String
     @Binding var otherInfo: String
     @Binding var date: Date
+    @Binding var buyDate: Date
+    @Binding var useDate: Date
     @Binding var isON: Bool
     @Binding var pick1: Int
 
