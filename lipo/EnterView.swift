@@ -48,7 +48,7 @@ struct EnterView: View {
     @State var Cellhairetu = ["1","2","3","4","5","6"]
     @State var batteryNo = ""
     @State var toSavelipo = false
-    @State var isSaved = false
+    @State private var isSaved = false
     @Environment(\.managedObjectContext) var viewContext
     
     @ObservedObject var profile = UserProfile()
