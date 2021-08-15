@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4A4CAE7626C29EF70044A3C1 /* keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CAE7526C29EF70044A3C1 /* keyboard.swift */; };
+		AC8A84B32058F8DEC1E1E175 /* Pods_lipo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBA4E7F033938E2968BECB2 /* Pods_lipo.framework */; };
 		CE3EEBFD2559BA7200EE29DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3EEBFC2559BA7200EE29DA /* AppDelegate.swift */; };
 		CE3EEBFF2559BA7200EE29DA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3EEBFE2559BA7200EE29DA /* SceneDelegate.swift */; };
 		CE3EEC012559BA7200EE29DA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3EEC002559BA7200EE29DA /* ContentView.swift */; };
@@ -17,15 +18,16 @@
 		CE3EEC132559BB2000EE29DA /* EnterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3EEC122559BB1F00EE29DA /* EnterView.swift */; };
 		CE50F3B5258656D1003A8D5B /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE50F3B4258656D1003A8D5B /* Setting.swift */; };
 		CEE32201255C142600716BC8 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE32200255C142600716BC8 /* EditView.swift */; };
-		DED3FD5AF418DB301C1A89B4 /* Pods_Realm9.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95EE2C876F43FB42C586B045 /* Pods_Realm9.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		125852D637A41B572EED1EC6 /* Pods-Realm9.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Realm9.debug.xcconfig"; path = "Target Support Files/Pods-Realm9/Pods-Realm9.debug.xcconfig"; sourceTree = "<group>"; };
+		18F0204FC702D0ABE2C62BF7 /* Pods-lipo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lipo.debug.xcconfig"; path = "Target Support Files/Pods-lipo/Pods-lipo.debug.xcconfig"; sourceTree = "<group>"; };
+		29CB97F7D5DDD80A40401CED /* Pods-lipo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lipo.release.xcconfig"; path = "Target Support Files/Pods-lipo/Pods-lipo.release.xcconfig"; sourceTree = "<group>"; };
 		4A007B7126B707A1007163E2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4A4CAE7526C29EF70044A3C1 /* keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboard.swift; sourceTree = "<group>"; };
-		95EE2C876F43FB42C586B045 /* Pods_Realm9.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Realm9.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F2AFBD6E77CADE746D0B633 /* Pods-Realm9.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Realm9.release.xcconfig"; path = "Target Support Files/Pods-Realm9/Pods-Realm9.release.xcconfig"; sourceTree = "<group>"; };
+		ACBA4E7F033938E2968BECB2 /* Pods_lipo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lipo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE3EEBF92559BA7200EE29DA /* lipo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lipo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE3EEBFC2559BA7200EE29DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE3EEBFE2559BA7200EE29DA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -44,7 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DED3FD5AF418DB301C1A89B4 /* Pods_Realm9.framework in Frameworks */,
+				AC8A84B32058F8DEC1E1E175 /* Pods_lipo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +58,8 @@
 			children = (
 				125852D637A41B572EED1EC6 /* Pods-Realm9.debug.xcconfig */,
 				9F2AFBD6E77CADE746D0B633 /* Pods-Realm9.release.xcconfig */,
+				18F0204FC702D0ABE2C62BF7 /* Pods-lipo.debug.xcconfig */,
+				29CB97F7D5DDD80A40401CED /* Pods-lipo.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -107,7 +111,7 @@
 		D030A3E6C055FE08828333E2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				95EE2C876F43FB42C586B045 /* Pods_Realm9.framework */,
+				ACBA4E7F033938E2968BECB2 /* Pods_lipo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -123,7 +127,7 @@
 				CE3EEBF52559BA7200EE29DA /* Sources */,
 				CE3EEBF62559BA7200EE29DA /* Frameworks */,
 				CE3EEBF72559BA7200EE29DA /* Resources */,
-				BE0787FF8883B5B63ECE8E1E /* [CP] Embed Pods Frameworks */,
+				88C17085E03F955E17E73FBA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -181,6 +185,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		88C17085E03F955E17E73FBA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lipo/Pods-lipo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lipo/Pods-lipo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lipo/Pods-lipo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A35C90D1142F94D2149A2155 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -196,28 +217,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Realm9-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-lipo-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BE0787FF8883B5B63ECE8E1E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Realm9/Pods-Realm9-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Realm9/Pods-Realm9-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Realm9/Pods-Realm9-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -372,7 +376,7 @@
 		};
 		CE3EEC0E2559BA7300EE29DA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9F2AFBD6E77CADE746D0B633 /* Pods-Realm9.release.xcconfig */;
+			baseConfigurationReference = 18F0204FC702D0ABE2C62BF7 /* Pods-lipo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -394,7 +398,7 @@
 		};
 		CE3EEC0F2559BA7300EE29DA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 125852D637A41B572EED1EC6 /* Pods-Realm9.debug.xcconfig */;
+			baseConfigurationReference = 29CB97F7D5DDD80A40401CED /* Pods-lipo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

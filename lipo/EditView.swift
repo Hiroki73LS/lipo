@@ -18,7 +18,6 @@ struct EditView: View {
     @Binding var useDate: Date
     @Binding var cells: Int
 
-//    @State var isSaved: Bool
     @State private var toSave = false
     @State private var alert = false
     @State private var alert1 = false
@@ -132,25 +131,11 @@ struct EditView: View {
                      }
                 }
             }.padding()
-                
-            Spacer().alert(isPresented: $toSave) {
-                Alert(
-                    title: Text("登録しますか？"),
-                    primaryButton: .default(Text("はい"),
-                                            action: {(
-                                            )}),
-                    secondaryButton: .cancel(Text("いいえ")))
-            }
-//            Spacer().alert(isPresented: $isSaved) {
-//                Alert(title: Text("Message"),
-//                      message: Text("The order was saved successfully."),
-//                      dismissButton: .default(Text("OK")))
-//            }
-        }.onAppear{
-            self.keyboard.addObserver()
-        }.onDisappear{
-            self.keyboard.removeObserver()
-        }.padding(.bottom, keyboard.keyboardHeight)
+            }.onAppear{
+                self.keyboard.addObserver()
+            }.onDisappear{
+                self.keyboard.removeObserver()
+            }.padding(.bottom, keyboard.keyboardHeight)
 
             }
         
