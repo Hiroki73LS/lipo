@@ -5,7 +5,7 @@ class Model: Object {
     @objc dynamic var id = UUID().uuidString
     @objc dynamic var condition = false
     @objc dynamic var btcapa = 0
-    @objc dynamic var batteryNo = ""
+    @objc dynamic var batteryNo = 0
     @objc dynamic var otherInfo = ""
     @objc dynamic var isON = false
     @objc dynamic var buyDate = Date()
@@ -17,7 +17,7 @@ struct ContentViewCellModel {
     let id: String
     let condition : Bool
     let btcapa : Int
-    let batteryNo : String
+    let batteryNo : Int
     let otherInfo : String
     var isON : Bool
     let buyDate : Date
@@ -46,7 +46,7 @@ struct EnterView: View {
     
     @ObservedObject var keyboard = KeyboardObserver()
     @State var Cellhairetu = ["1","2","3","4","5","6"]
-    @State var batteryNo = ""
+    @State var batteryNo = 0
     @State var toSavelipo = false
     @Environment(\.managedObjectContext) var viewContext
     
@@ -113,17 +113,21 @@ struct EnterView: View {
                                    label: {Text("使用開始 (Start date of use)")} )
                         HStack{
                             Text("Battery No.")
-                            TextField("Battery No.", text: $batteryNo)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            Picker(selection: self.$batteryNo, label: Text("BatteryNo")){
+                                                ForEach(1..<101){ _x in
+                                                    Text("\(_x)")
+                                                }
+                            }.frame(minWidth: 0, maxWidth: 100, maxHeight: 100)
+                            .clipped()
                         }
                         TextField("Other info", text: $otherInfo)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         Divider()
                         Button(action: {
-                            if self.batteryNo == "" {
+                            if self.batteryNo == 0 {
                                 self.alert = false
                                 self.alert1.toggle()
-                            } else if self.batteryNo == "000121" {
+                            } else if self.otherInfo == "010101" {
                 //-裏コマンド実施確認用の動き--------------------------
                                                 otherInfo = "000"
                 //-Realm全削除--------------------------
@@ -138,7 +142,7 @@ struct EnterView: View {
                                 //-書き込み--------------------------
                                 let models = lipo.Model()
                                 models.condition = condition
-                                models.batteryNo = batteryNo
+                                models.batteryNo = batteryNo + 1
                                 models.btcapa = btcapa
                                 models.otherInfo = otherInfo
                                 models.cells = cells
@@ -148,7 +152,9 @@ struct EnterView: View {
                                 let realm = try? Realm()
                                 try? realm?.write {
                                     realm?.add(models)
-                                    let Results = realm?.objects(Model.self).sorted(byKeyPath: "date", ascending: true)
+                                    
+                                    let Results = realm?.objects(Model.self).sorted(byKeyPath: "batteryNo", ascending: true)
+                                    
                                     realm?.add(Results!)
                                 }
                                 //-書き込み--------------------------
@@ -168,11 +174,11 @@ struct EnterView: View {
                             case true:
                                 return
                                     Alert(title: Text("確認"),
-                                          message: Text("Battery No.[ \(batteryNo) ]を登録しました。"),
+                                          message: Text("Battery No.[ \(batteryNo+1) ]を登録しました。"),
                                           dismissButton: .default(Text("OK"),
                                                                   action: {
                                                                     condition = false
-                                                                    batteryNo = ""
+                                                                    batteryNo = 0
                                                                     isON = false
                                                                     self.presentationMode.wrappedValue.dismiss()
                                                                   }))

@@ -11,7 +11,7 @@ struct EditView: View {
     
     @Binding var condition: Bool
     @Binding var btcapa : Int
-    @Binding var batteryNo : String
+    @Binding var batteryNo : Int
     @Binding var otherInfo: String
     @Binding var isON: Bool
     @Binding var buyDate: Date
@@ -37,8 +37,10 @@ struct EditView: View {
 
         
         NavigationView{
+            ZStack{
+                backGroundColor.edgesIgnoringSafeArea(.all)
             VStack {
-                Text("バッテリー管理情報入力画面").font(.title2)
+                Text("バッテリー管理情報編集入画面").font(.title2)
                 HStack{
                 Toggle(isOn: $condition) {
                     Text("Best Condition Battery")
@@ -66,31 +68,27 @@ struct EditView: View {
                            label: {Text("使用開始 (Start date of use)")} )
                 HStack{
                     Text("Battery No.")
-                    TextField("Battery No.", text: $batteryNo)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    Picker(selection: self.$batteryNo, label: Text("BatteryNo")){
+                                        ForEach(1..<101){ _x in
+                                            Text("\(_x)")
+                                        }
+                    }.frame(minWidth: 0, maxWidth: 100, maxHeight: 100)
+                    .clipped()
                 }
                 TextField("Other info", text: $otherInfo)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 Divider()
                 Button(action: {
-                    if self.batteryNo == "" {
+                    if self.batteryNo == 0 {
                         self.alert = false
                         self.alert1.toggle()
-                    } else if self.batteryNo == "000121" {
-                        print("Realm全削除")
-                        //-Realm全削除--------------------------
-                                            let realm = try! Realm()
-                                            try! realm.write {
-                                                realm.deleteAll()
-                                            }
-                        //-Realm全削除--------------------------
                     } else {
                         self.alert1.toggle()
                         self.toSave = true
         //-書き込み--------------------------
                         let models = lipo.Model()
                         models.condition = condition
-                        models.batteryNo = batteryNo
+                        models.batteryNo = batteryNo + 1
                         models.btcapa = btcapa
                         models.otherInfo = otherInfo
                         models.cells = cells
@@ -100,7 +98,7 @@ struct EditView: View {
                         let realm = try? Realm()
                         try? realm?.write {
                              realm?.add(models)
-                        let Results = realm?.objects(Model.self).sorted(byKeyPath: "date", ascending: true)
+                        let Results = realm?.objects(Model.self).sorted(byKeyPath: "batteryNo", ascending: true)
                             realm?.add(Results!)
                         }
         //-書き込み--------------------------
@@ -120,11 +118,11 @@ struct EditView: View {
                         case true:
                          return
                             Alert(title: Text("確認"),
-                                  message: Text("Battery No.[ \(batteryNo) ]を登録しました。"),
+                                  message: Text("Battery No.[ \(batteryNo+1) ]を変更しました。"),
                             dismissButton: .default(Text("OK"),
                             action: {
                                 condition = false
-                                batteryNo = ""
+                                batteryNo = 0
                                 isON = false
                                 self.presentationMode.wrappedValue.dismiss()
                             }))
@@ -137,84 +135,8 @@ struct EditView: View {
                 self.keyboard.removeObserver()
             }.padding(.bottom, keyboard.keyboardHeight)
 
-            }
-        
-        
-        
-//        NavigationView {
-//            ZStack{
-//            backGroundColor.edgesIgnoringSafeArea(.all)
-//            Form {
-//                Section(header: Text("Title & Doの入力")) {
-////                    TextField("[タイトル]を入力してください", text: $task2)
-////                    TextField("[内容]を入力してください", text: $task2)
-//                    DatePicker(selection: $buyDate, displayedComponents: .date,label: {Text("登録日時")} )
-//                    HStack {
-//                        Text("お気に入り")
-//                        Toggle(isOn: $isON) {
-//                        EmptyView()
-//                        }
-//                    }
-//                }
-//                Section(header: Text("カスタムタイプを選択")) {
-//
-//
-//                }
-//                Section{
-//                    HStack{
-//                        Spacer()
-//                        Button(action: {
-//                            if self.batteryNo == "" {
-//                                self.alert = false
-//                                self.alert1.toggle()
-//                            }else{
-//                                self.alert1.toggle()
-//                                self.toSave = true
-//
-//                //-書き込み--------------------------
-//                                let realm = try! Realm()
-//                                let predicate = NSPredicate(format: "date == %@", buyDate as CVarArg)
-//                                let results = realm.objects(Model.self).filter(predicate).first
-//                                try! realm.write {
-//                                    results?.condition = condition
-//                                    results?.btcapa = btcapa
-////                                    results?.cells = cells
-//                                    results?.isON = isON
-//                                }
-//                //---書き込み--------------------------
-//                                self.alert = true
-//                                }
-//                        }){
-//                    Text("更新")
-//                        }
-//                        .padding()
-//                        .alert(isPresented: $alert1) {
-//                            switch(alert) {
-//                                case false:
-//                                 return
-//                                    Alert(title: Text("注意"),
-//                                     message: Text("[タイトル]を入力してください"),
-//                                     dismissButton: .default(Text("OK")))
-//                                case true:
-//                                 return
-//                                    Alert(title: Text("確認"),
-//                                          message: Text("タイトル[\(batteryNo)]の内容を更新しました。"),
-//                                    dismissButton: .default(Text("OK"),
-//                                    action: {
-//                                        condition = false
-//                                        batteryNo = ""
-//                                        otherInfo = ""
-//                                        isON = false
-//                                        self.presentation.wrappedValue.dismiss()
-//                                    }))
-//                             }
-//                        }
-//                    Spacer()
-//            }
-//        }
-//            }.navigationBarTitle("")
-//            }}
-    }
+            }}
+        }
     }
 
 //struct EditView_Previews: PreviewProvider {

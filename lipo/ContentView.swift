@@ -19,7 +19,7 @@ struct ContentView: View {
     @State private var idDetail = ""
     @State private var conditionDetail : Bool = false
     @State private var btcapaDetail : Int = 0
-    @State private var batteryNoDetail : String = ""
+    @State private var batteryNoDetail : Int = 0
     @State private var otherInfoDetail : String = ""
     @State private var buyDateDetail = Date()
     @State private var useDateDetail = Date()
@@ -32,10 +32,10 @@ struct ContentView: View {
     @State private var isShown2: Bool = false
     @State private var showingAlert = false
     @State private var showAlert = false
+    
     var dateFormat: DateFormatter {
         let dformat = DateFormatter()
         dformat.dateFormat = "yyyy/M/d"
-//        dformat.dateFormat = "yyyy/M/d h:mm"
         return dformat
     }
     
@@ -52,7 +52,7 @@ struct ContentView: View {
                 backGroundColor.edgesIgnoringSafeArea(.all)
                 VStack{
                     List{
-                        ForEach(model.cellModels, id: \.id) {
+                        ForEach(model.cellModels, id: \.batteryNo) {
                             cellModel in
                             Button(action: {
                                 idDetail = cellModel.id
@@ -74,8 +74,7 @@ struct ContentView: View {
                                                 Text("No.\(cellModel.batteryNo)")
                                                 .font(.title)
                                             Spacer()
-                                            Text("セル数:\(cellModel.cells)")
-                                                .font(.title)
+                                            Text("Cell数:\(cellModel.cells)")
                                             }
                                                 HStack{
                                                     Text("容量:\(cellModel.btcapa)mhA")
@@ -99,7 +98,7 @@ struct ContentView: View {
 //                                                        cellModel.condition = false
                                                     }}
                                         } else {
-                                            Image(systemName: "battery.75")
+                                            Image(systemName: "battery.100")
                                                 .foregroundColor(.secondary)
                                                 .onTapGesture {
                                                     try? Realm().write {
