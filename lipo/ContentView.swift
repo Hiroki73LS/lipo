@@ -71,10 +71,10 @@ struct ContentView: View {
                                         VStack(alignment:.leading) {
                                             VStack{
                                                 HStack{
-                                                Text("No.\(cellModel.batteryNo)")
+                                                Text("No.\(cellModel.batteryNo + 1)")
                                                 .font(.title)
                                             Spacer()
-                                            Text("Cell数:\(cellModel.cells)")
+                                            Text("Cell数:\(cellModel.cells + 1)")
                                             }
                                                 HStack{
                                                     Text("容量:\(cellModel.btcapa)mhA")

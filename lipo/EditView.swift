@@ -79,54 +79,49 @@ struct EditView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 Divider()
                 Button(action: {
-                    if self.batteryNo == 0 {
-                        self.alert = false
-                        self.alert1.toggle()
-                    } else {
                         self.alert1.toggle()
                         self.toSave = true
         //-書き込み--------------------------
-                        let models = lipo.Model()
-                        models.condition = condition
-                        models.batteryNo = batteryNo + 1
-                        models.btcapa = btcapa
-                        models.otherInfo = otherInfo
-                        models.cells = cells
-                        models.isON = isON
-                        models.buyDate = buyDate
-                        models.useDate = useDate
-                        let realm = try? Realm()
-                        try? realm?.write {
-                             realm?.add(models)
-                        let Results = realm?.objects(Model.self).sorted(byKeyPath: "batteryNo", ascending: true)
-                            realm?.add(Results!)
+                    let realm = try! Realm()
+                    let predicate = NSPredicate(format: "buyDate == %@", buyDate as CVarArg)
+                    let results = realm.objects(Model.self).filter(predicate).first
+                    try! realm.write {
+                        results?.condition = condition
+                        results?.batteryNo = batteryNo
+                        results?.btcapa = btcapa
+                        results?.otherInfo = otherInfo
+                        results?.cells = cells
+                        results?.isON = isON
+                        results?.buyDate = buyDate
+                        results?.useDate = useDate
                         }
         //-書き込み--------------------------
                         self.alert = true
-                        }
                 }){
             Text("Save")
                 }
                 .padding()
                 .alert(isPresented: $alert1) {
                     switch(alert) {
-                        case false:
-                         return
+                    case false:
+                        return
                             Alert(title: Text("注意"),
-                             message: Text("[BatteryNo.]を入力してください"),
-                             dismissButton: .default(Text("OK")))
-                        case true:
-                         return
+                                  message: Text("[BatteryNo.]を入力してください"),
+                                  dismissButton: .default(Text("OK")))
+                        
+                    case true:
+                        return
                             Alert(title: Text("確認"),
                                   message: Text("Battery No.[ \(batteryNo+1) ]を変更しました。"),
-                            dismissButton: .default(Text("OK"),
-                            action: {
-                                condition = false
-                                batteryNo = 0
-                                isON = false
-                                self.presentationMode.wrappedValue.dismiss()
-                            }))
-                     }
+                                  dismissButton: .default(Text("OK"),
+                                                          action: {
+                                                            condition = false
+                                                            batteryNo = 0
+                                                            isON = false
+                                                            self.alert1.toggle()
+                                                            self.presentationMode.wrappedValue.dismiss()
+                                                          }))
+                    }
                 }
             }.padding()
             }.onAppear{

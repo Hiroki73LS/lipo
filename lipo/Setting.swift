@@ -57,9 +57,9 @@ class UserProfile: ObservableObject {
     }
 
     /// レベル
-    @Published var level: Int {
+    @Published var capa: Int {
         didSet {
-            UserDefaults.standard.set(level, forKey: "level")
+            UserDefaults.standard.set(capa, forKey: "capa")
         }
     }
     
@@ -68,7 +68,7 @@ class UserProfile: ObservableObject {
         username = UserDefaults.standard.string(forKey: "username") ?? ""
         username2 = UserDefaults.standard.string(forKey: "username2") ?? ""
         username3 = UserDefaults.standard.string(forKey: "username3") ?? ""
-        level = UserDefaults.standard.object(forKey: "level") as? Int ?? 1
+        capa = UserDefaults.standard.object(forKey: "capa") as? Int ?? 99
     }
 }
 

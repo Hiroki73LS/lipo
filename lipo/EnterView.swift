@@ -13,6 +13,19 @@ class Model: Object {
     @objc dynamic var cells = 0
 }
 
+class UserProfile2: ObservableObject {
+    /// 前回のバッテリーキャパ
+    @Published var oldcapa: Int {
+        didSet {
+            UserDefaults.standard.set(oldcapa, forKey: "oldcapa")
+        }
+    }
+    /// 初期化処理
+    init() {
+        oldcapa = UserDefaults.standard.object(forKey: "oldcapa") as? Int ?? 99
+    }
+}
+
 struct ContentViewCellModel {
     let id: String
     let condition : Bool
@@ -44,6 +57,8 @@ class viewModel: ObservableObject {
     
 struct EnterView: View {
     
+    @ObservedObject var profile2 = UserProfile2()
+
     @ObservedObject var keyboard = KeyboardObserver()
     @State var Cellhairetu = ["1","2","3","4","5","6"]
     @State var batteryNo = 0
@@ -53,7 +68,7 @@ struct EnterView: View {
     @ObservedObject var profile = UserProfile()
     @ObservedObject var model = viewModel()
     @State private var condition = false
-    @State private var btcapa = 200
+    @State private var btcapa = 0
     @State private var otherInfo = ""
     @State private var buyDate = Date()
     @State private var useDate = Date()
@@ -77,7 +92,11 @@ struct EnterView: View {
     init() {
             UITableView.appearance().backgroundColor = .clear
             UITableViewCell.appearance().backgroundColor = .clear
+            self.btcapa = self.profile2.oldcapa
+            otherInfo = String(btcapa)
         }
+
+
     
     var body: some View {
 
@@ -124,25 +143,24 @@ struct EnterView: View {
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         Divider()
                         Button(action: {
-                            if self.batteryNo == 0 {
-                                self.alert = false
-                                self.alert1.toggle()
-                            } else if self.otherInfo == "010101" {
-                //-裏コマンド実施確認用の動き--------------------------
-                                                otherInfo = "000"
-                //-Realm全削除--------------------------
+                            if self.otherInfo == "010101" {
+                                //-裏コマンド実施確認用の動き--------------------------
+                                otherInfo = "000"
+                                //-Realm全削除--------------------------
                                 let realm = try! Realm()
                                 try! realm.write {
                                     realm.deleteAll()
                                 }
-                //-Realm全削除--------------------------
+                                //-Realm全削除--------------------------
                             } else {
                                 self.alert1.toggle()
                                 self.toSave = true
                                 //-書き込み--------------------------
+                                profile2.oldcapa = btcapa
+                                
                                 let models = lipo.Model()
                                 models.condition = condition
-                                models.batteryNo = batteryNo + 1
+                                models.batteryNo = batteryNo
                                 models.btcapa = btcapa
                                 models.otherInfo = otherInfo
                                 models.cells = cells
@@ -194,6 +212,9 @@ struct EnterView: View {
             }}
     }
 }
+
+
+
 
 struct EnterView_Previews: PreviewProvider {
     static var previews: some View {
