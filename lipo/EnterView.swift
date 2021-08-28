@@ -41,14 +41,14 @@ struct ContentViewCellModel {
 class viewModel: ObservableObject {
     
     private var token: NotificationToken?
-    private var myModelResults = try? Realm().objects(Model.self)
+    private var myModelResults = try? Realm().objects(Model.self).sorted(byKeyPath: "batteryNo", ascending: true)
     @Published var cellModels: [ContentViewCellModel] = []
 
     init() {
         token = myModelResults?.observe { [weak self] _ in
             self?.cellModels = self?.myModelResults?.map {ContentViewCellModel(id: $0.id, condition: $0.condition, btcapa: $0.btcapa, batteryNo: $0.batteryNo, otherInfo: $0.otherInfo, isON: $0.isON, buyDate: $0.buyDate, useDate: $0.useDate, cells: $0.cells) } ?? []
         }
-    }
+}
     
     deinit {
         token?.invalidate()
@@ -159,17 +159,21 @@ struct EnterView: View {
                                 profile2.oldcapa = btcapa
                                 
                                 let models = Model()
+                                models.condition = condition
+                                models.batteryNo = batteryNo
+                                models.btcapa = btcapa
+                                models.otherInfo = otherInfo
+                                models.cells = cells
+                                models.isON = isON
+                                models.buyDate = buyDate
+                                models.useDate = useDate
+                                
                                 let realm = try? Realm()
                                 try? realm?.write {
                                     realm?.add(models)
                                 }
- 
-                                try? realm?.write {
 
-                                let Results = realm?.objects(Model.self).sorted(byKeyPath: "batteryNo", ascending: true)
-                                
-                                realm?.add(Results!)
-                                }
+//                                let Results = realm?.objects(Model.self).sorted(byKeyPath: "batteryNo", ascending: true)
                                 
                                 //-書き込み--------------------------
                                 self.alert = true
