@@ -52,7 +52,7 @@ struct ContentView: View {
                 backGroundColor.edgesIgnoringSafeArea(.all)
                 VStack{
                     List{
-                        ForEach(model.cellModels, id: \.batteryNo) {
+                        ForEach(model.cellModels, id: \.id) {
                             cellModel in
                             Button(action: {
                                 idDetail = cellModel.id
@@ -66,7 +66,7 @@ struct ContentView: View {
                                 cellsDetail = cellModel.cells
                                 self.showAlert = true
                             }, label: {
-                                NavigationLink(destination: EditView(condition: $conditionDetail, btcapa: $btcapaDetail, batteryNo: $batteryNoDetail, otherInfo: $otherInfoDetail, isON: $isONDetail, buyDate: $buyDateDetail, useDate: $useDateDetail, cells: $cellsDetail), isActive: $showAlert) {
+                                NavigationLink(destination: EditView(id: $idDetail, condition: $conditionDetail, btcapa: $btcapaDetail, batteryNo: $batteryNoDetail, otherInfo: $otherInfoDetail, isON: $isONDetail, buyDate: $buyDateDetail, useDate: $useDateDetail, cells: $cellsDetail), isActive: $showAlert) {
                                     HStack{
                                         VStack(alignment:.leading) {
                                             VStack{
@@ -160,7 +160,7 @@ struct ContentView: View {
 func rowRemove(offsets: IndexSet) {
     let ttt = "111"
     let realm = try! Realm()            // ① realmインスタンスの生成
-    let targetEmployee = realm.objects(Model.self).filter("batteryNo == %@", ttt)  // ② 削除したいデータを検索する
+    let targetEmployee = realm.objects(Model.self).filter("id == %@", ttt)  // ② 削除したいデータを検索する
     
     print(targetEmployee)
     do{                                 // ③ 部署を更新する

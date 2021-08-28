@@ -9,6 +9,7 @@ struct EditView: View {
     @ObservedObject var profile = UserProfile()
     @Environment(\.presentationMode) var presentation
     
+    @Binding var id: String
     @Binding var condition: Bool
     @Binding var btcapa : Int
     @Binding var batteryNo : Int
@@ -18,9 +19,10 @@ struct EditView: View {
     @Binding var useDate: Date
     @Binding var cells: Int
 
-    @State private var toSave = false
+//    @State private var toSave = false
+//    @State private var alert1 = false
+
     @State private var alert = false
-    @State private var alert1 = false
     @State private var sentakusi = ""
     @Environment(\.presentationMode) var presentationMode
 
@@ -40,7 +42,7 @@ struct EditView: View {
             ZStack{
                 backGroundColor.edgesIgnoringSafeArea(.all)
             VStack {
-                Text("バッテリー管理情報編集入画面").font(.title2)
+                Text("編集画面").font(.title2)
                 HStack{
                 Toggle(isOn: $condition) {
                     Text("Best Condition Battery")
@@ -79,11 +81,11 @@ struct EditView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 Divider()
                 Button(action: {
-                        self.alert1.toggle()
-                        self.toSave = true
+                        self.alert = true
+//                        self.toSave = true
         //-書き込み--------------------------
                     let realm = try! Realm()
-                    let predicate = NSPredicate(format: "buyDate == %@", buyDate as CVarArg)
+                    let predicate = NSPredicate(format: "id == %@", id as CVarArg)
                     let results = realm.objects(Model.self).filter(predicate).first
                     try! realm.write {
                         results?.condition = condition
@@ -96,33 +98,35 @@ struct EditView: View {
                         results?.useDate = useDate
                         }
         //-書き込み--------------------------
-                        self.alert = true
+                    
+                    print("\(alert)")
+                    _ = Alert(title: Text("確認"),
+                          message: Text("Battery No.[ \(batteryNo+1) ]を更新しました。"),
+                          dismissButton: .default(Text("OK"),
+                                                  action: {
+                                                    condition = false
+                                                    batteryNo = 0
+                                                    isON = false
+                                                    self.alert.toggle()
+                                                    self.presentationMode.wrappedValue.dismiss()
+                                                  }))
+
                 }){
             Text("Save")
                 }
                 .padding()
-                .alert(isPresented: $alert1) {
-                    switch(alert) {
-                    case false:
-                        return
-                            Alert(title: Text("注意"),
-                                  message: Text("[BatteryNo.]を入力してください"),
-                                  dismissButton: .default(Text("OK")))
-                        
-                    case true:
-                        return
-                            Alert(title: Text("確認"),
-                                  message: Text("Battery No.[ \(batteryNo+1) ]を変更しました。"),
-                                  dismissButton: .default(Text("OK"),
-                                                          action: {
-                                                            condition = false
-                                                            batteryNo = 0
-                                                            isON = false
-                                                            self.alert1.toggle()
-                                                            self.presentationMode.wrappedValue.dismiss()
-                                                          }))
-                    }
-                }
+//                .alert(isPresented: $alert) {
+//                            Alert(title: Text("確認"),
+//                                  message: Text("Battery No.[ \(batteryNo+1) ]を更新しました。"),
+//                                  dismissButton: .default(Text("OK"),
+//                                                          action: {
+//                                                            condition = false
+//                                                            batteryNo = 0
+//                                                            isON = false
+//                                                            self.alert.toggle()
+//                                                            self.presentationMode.wrappedValue.dismiss()
+//                                                          }))
+//                    }
             }.padding()
             }.onAppear{
                 self.keyboard.addObserver()

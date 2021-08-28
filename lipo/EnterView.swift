@@ -62,7 +62,7 @@ struct EnterView: View {
     @ObservedObject var keyboard = KeyboardObserver()
     @State var Cellhairetu = ["1","2","3","4","5","6"]
     @State var batteryNo = 0
-    @State var toSavelipo = false
+//    @State var toSavelipo = false
     @Environment(\.managedObjectContext) var viewContext
     
     @ObservedObject var profile = UserProfile()
@@ -158,23 +158,19 @@ struct EnterView: View {
                                 //-書き込み--------------------------
                                 profile2.oldcapa = btcapa
                                 
-                                let models = lipo.Model()
-                                models.condition = condition
-                                models.batteryNo = batteryNo
-                                models.btcapa = btcapa
-                                models.otherInfo = otherInfo
-                                models.cells = cells
-                                models.isON = isON
-                                models.buyDate = buyDate
-                                models.useDate = useDate
+                                let models = Model()
                                 let realm = try? Realm()
                                 try? realm?.write {
                                     realm?.add(models)
-                                    
-                                    let Results = realm?.objects(Model.self).sorted(byKeyPath: "batteryNo", ascending: true)
-                                    
-                                    realm?.add(Results!)
                                 }
+ 
+                                try? realm?.write {
+
+                                let Results = realm?.objects(Model.self).sorted(byKeyPath: "batteryNo", ascending: true)
+                                
+                                realm?.add(Results!)
+                                }
+                                
                                 //-書き込み--------------------------
                                 self.alert = true
                             }
