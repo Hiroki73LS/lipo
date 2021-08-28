@@ -172,9 +172,6 @@ struct EnterView: View {
                                 try? realm?.write {
                                     realm?.add(models)
                                 }
-
-//                                let Results = realm?.objects(Model.self).sorted(byKeyPath: "batteryNo", ascending: true)
-                                
                                 //-書き込み--------------------------
                                 self.alert = true
                             }
