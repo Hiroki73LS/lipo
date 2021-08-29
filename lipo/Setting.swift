@@ -20,9 +20,6 @@ struct Setting: View {
                     TextField("選択肢1", text: $profile.username)
                     TextField("選択肢2", text: $profile.username2)
                     TextField("選択肢3", text: $profile.username3)
-                  //  Stepper(value: $profile.level, in: 1...10) {
-                  //      Text("Level : \(profile.level)")
-                  //  }
                 }
             }
             .navigationTitle("Setting")
@@ -41,28 +38,24 @@ class UserProfile: ObservableObject {
             UserDefaults.standard.set(username, forKey: "username")
         }
     }
-    
     /// 選択肢２
     @Published var username2: String {
         didSet {
             UserDefaults.standard.set(username2, forKey: "username2")
         }
     }
-
     /// 選択肢３
     @Published var username3: String {
         didSet {
             UserDefaults.standard.set(username3, forKey: "username3")
         }
     }
-
     /// レベル
     @Published var capa: Int {
         didSet {
             UserDefaults.standard.set(capa, forKey: "capa")
         }
     }
-    
     /// 初期化処理
     init() {
         username = UserDefaults.standard.string(forKey: "username") ?? ""

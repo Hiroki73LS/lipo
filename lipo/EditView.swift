@@ -39,7 +39,7 @@ struct EditView: View {
             ZStack{
                 backGroundColor.edgesIgnoringSafeArea(.all)
             VStack {
-                Text("編集画面").font(.title2)
+                Text("編集画面").font(.largeTitle)
                 HStack{
                 Toggle(isOn: $condition) {
                     Text("Best Condition Battery")

@@ -15,14 +15,11 @@ class Model: Object {
 
 class UserProfile2: ObservableObject {
     /// 前回のバッテリーキャパ
-    @Published var oldcapa: Int {
-        didSet {
-            UserDefaults.standard.set(oldcapa, forKey: "oldcapa")
-        }
-    }
+    @Published var oldcapa: Int
     /// 初期化処理
     init() {
         oldcapa = UserDefaults.standard.object(forKey: "oldcapa") as? Int ?? 99
+        print("oldcapa:\(oldcapa)です")
     }
 }
 
@@ -56,7 +53,7 @@ class viewModel: ObservableObject {
 }
     
 struct EnterView: View {
-    
+
     @ObservedObject var profile2 = UserProfile2()
 
     @ObservedObject var keyboard = KeyboardObserver()
@@ -92,8 +89,8 @@ struct EnterView: View {
     init() {
             UITableView.appearance().backgroundColor = .clear
             UITableViewCell.appearance().backgroundColor = .clear
-            self.btcapa = self.profile2.oldcapa
-            otherInfo = String(btcapa)
+            btcapa = Int("\(profile2.oldcapa)") ?? 99
+            otherInfo = "\(btcapa)"
         }
 
 
@@ -104,7 +101,7 @@ struct EnterView: View {
             ZStack{
                 backGroundColor.edgesIgnoringSafeArea(.all)
                 VStack {
-                    Text("バッテリー管理情報入力画面").font(.title2)
+                    Text("バッテリー情報入力画面").font(.title)
                     HStack{
                         Toggle(isOn: $condition) {
                             Text("Best Condition Battery")
@@ -117,13 +114,13 @@ struct EnterView: View {
                             }
                         }.pickerStyle(SegmentedPickerStyle())
                         
-                        Stepper(value: $btcapa ,in: 10...6000, step: 10) {
-                            Text("Battery Capacity : \(btcapa)mAh" )
+                        Stepper(value: $profile2.oldcapa ,in: 10...6000, step: 10) {
+                            Text("Battery Capacity : \(profile2.oldcapa)mAh" )
                         }
-                        Stepper(value: $btcapa  ,in: 10...6000, step: 100) {
+                        Stepper(value: $profile2.oldcapa  ,in: 10...6000, step: 100) {
                             Text("( Step : 100mAh )")
                         }
-                        Stepper(value: $btcapa  ,in: 10...6000, step: 1000) {
+                        Stepper(value: $profile2.oldcapa  ,in: 10...6000, step: 1000) {
                             Text("( Step : 1000mAh )")
                         }
                         DatePicker(selection: $buyDate, displayedComponents: .date,
@@ -156,12 +153,12 @@ struct EnterView: View {
                                 self.alert1.toggle()
                                 self.toSave = true
                                 //-書き込み--------------------------
-                                profile2.oldcapa = btcapa
-                                
+                                UserDefaults.standard.set(profile2.oldcapa, forKey: "oldcapa")
+
                                 let models = Model()
                                 models.condition = condition
                                 models.batteryNo = batteryNo
-                                models.btcapa = btcapa
+                                models.btcapa = profile2.oldcapa
                                 models.otherInfo = otherInfo
                                 models.cells = cells
                                 models.isON = isON
