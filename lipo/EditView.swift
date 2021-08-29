@@ -19,9 +19,6 @@ struct EditView: View {
     @Binding var useDate: Date
     @Binding var cells: Int
 
-//    @State private var toSave = false
-//    @State private var alert1 = false
-
     @State private var alert = false
     @State private var sentakusi = ""
     @Environment(\.presentationMode) var presentationMode
@@ -115,18 +112,6 @@ struct EditView: View {
             Text("Save")
                 }
                 .padding()
-//                .alert(isPresented: $alert) {
-//                            Alert(title: Text("確認"),
-//                                  message: Text("Battery No.[ \(batteryNo+1) ]を更新しました。"),
-//                                  dismissButton: .default(Text("OK"),
-//                                                          action: {
-//                                                            condition = false
-//                                                            batteryNo = 0
-//                                                            isON = false
-//                                                            self.alert.toggle()
-//                                                            self.presentationMode.wrappedValue.dismiss()
-//                                                          }))
-//                    }
             }.padding()
             }.onAppear{
                 self.keyboard.addObserver()
@@ -138,8 +123,32 @@ struct EditView: View {
         }
     }
 
-//struct EditView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        EditView()
-//    }
-//}
+struct EditView_Previews: PreviewProvider {
+    
+    @State static var buyDate: Date = {
+            let df = DateFormatter()
+            df.dateFormat = "MM/dd/yyyy"
+            df.locale = Locale(identifier: "en_us_POSIX")
+            //df.timeZone = TimeZone(identifier: "UTC")
+            return df.date(from: "4/4/2020")!
+        }()
+    @State static var useDate: Date = {
+            let df = DateFormatter()
+            df.dateFormat = "MM/dd/yyyy"
+            df.locale = Locale(identifier: "en_us_POSIX")
+            //df.timeZone = TimeZone(identifier: "UTC")
+            return df.date(from: "4/4/2020")!
+        }()
+
+    @State static var id = "UUID"
+    @State static var condition = true
+    @State static var btcapa = 100
+    @State static var batteryNo = 1
+    @State static var otherInfo = ""
+    @State static var isON = true
+    @State static var cells = 3
+    
+    static var previews: some View {
+        EditView(id: $id, condition: $condition, btcapa: $btcapa, batteryNo: $batteryNo, otherInfo: $otherInfo, isON: $isON, buyDate: $buyDate, useDate: $useDate, cells: $cells)
+    }
+}
