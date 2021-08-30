@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		4A4CAE7626C29EF70044A3C1 /* keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CAE7526C29EF70044A3C1 /* keyboard.swift */; };
+		4AB6087D26DD3D8C008CCE0F /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB6087C26DD3D8C008CCE0F /* SplashScreen.swift */; };
 		AC8A84B32058F8DEC1E1E175 /* Pods_lipo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBA4E7F033938E2968BECB2 /* Pods_lipo.framework */; };
 		CE3EEBFD2559BA7200EE29DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3EEBFC2559BA7200EE29DA /* AppDelegate.swift */; };
 		CE3EEBFF2559BA7200EE29DA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3EEBFE2559BA7200EE29DA /* SceneDelegate.swift */; };
 		CE3EEC012559BA7200EE29DA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3EEC002559BA7200EE29DA /* ContentView.swift */; };
 		CE3EEC032559BA7300EE29DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE3EEC022559BA7300EE29DA /* Assets.xcassets */; };
 		CE3EEC062559BA7300EE29DA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE3EEC052559BA7300EE29DA /* Preview Assets.xcassets */; };
-		CE3EEC092559BA7300EE29DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE3EEC072559BA7300EE29DA /* LaunchScreen.storyboard */; };
 		CE3EEC132559BB2000EE29DA /* EnterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3EEC122559BB1F00EE29DA /* EnterView.swift */; };
 		CE50F3B5258656D1003A8D5B /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE50F3B4258656D1003A8D5B /* Setting.swift */; };
 		CEE32201255C142600716BC8 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE32200255C142600716BC8 /* EditView.swift */; };
@@ -24,8 +24,8 @@
 		125852D637A41B572EED1EC6 /* Pods-Realm9.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Realm9.debug.xcconfig"; path = "Target Support Files/Pods-Realm9/Pods-Realm9.debug.xcconfig"; sourceTree = "<group>"; };
 		18F0204FC702D0ABE2C62BF7 /* Pods-lipo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lipo.debug.xcconfig"; path = "Target Support Files/Pods-lipo/Pods-lipo.debug.xcconfig"; sourceTree = "<group>"; };
 		29CB97F7D5DDD80A40401CED /* Pods-lipo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lipo.release.xcconfig"; path = "Target Support Files/Pods-lipo/Pods-lipo.release.xcconfig"; sourceTree = "<group>"; };
-		4A007B7126B707A1007163E2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4A4CAE7526C29EF70044A3C1 /* keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboard.swift; sourceTree = "<group>"; };
+		4AB6087C26DD3D8C008CCE0F /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		9F2AFBD6E77CADE746D0B633 /* Pods-Realm9.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Realm9.release.xcconfig"; path = "Target Support Files/Pods-Realm9/Pods-Realm9.release.xcconfig"; sourceTree = "<group>"; };
 		ACBA4E7F033938E2968BECB2 /* Pods_lipo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lipo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE3EEBF92559BA7200EE29DA /* lipo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lipo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -34,7 +34,6 @@
 		CE3EEC002559BA7200EE29DA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CE3EEC022559BA7300EE29DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE3EEC052559BA7300EE29DA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CE3EEC082559BA7300EE29DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE3EEC0A2559BA7300EE29DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE3EEC122559BB1F00EE29DA /* EnterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterView.swift; sourceTree = "<group>"; };
 		CE50F3B4258656D1003A8D5B /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
@@ -92,8 +91,8 @@
 				CEE32200255C142600716BC8 /* EditView.swift */,
 				CE50F3B4258656D1003A8D5B /* Setting.swift */,
 				4A4CAE7526C29EF70044A3C1 /* keyboard.swift */,
+				4AB6087C26DD3D8C008CCE0F /* SplashScreen.swift */,
 				CE3EEC022559BA7300EE29DA /* Assets.xcassets */,
-				CE3EEC072559BA7300EE29DA /* LaunchScreen.storyboard */,
 				CE3EEC0A2559BA7300EE29DA /* Info.plist */,
 				CE3EEC042559BA7300EE29DA /* Preview Content */,
 			);
@@ -176,7 +175,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE3EEC092559BA7300EE29DA /* LaunchScreen.storyboard in Resources */,
 				CE3EEC062559BA7300EE29DA /* Preview Assets.xcassets in Resources */,
 				CE3EEC032559BA7300EE29DA /* Assets.xcassets in Resources */,
 			);
@@ -231,6 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AB6087D26DD3D8C008CCE0F /* SplashScreen.swift in Sources */,
 				CE3EEBFD2559BA7200EE29DA /* AppDelegate.swift in Sources */,
 				CE3EEBFF2559BA7200EE29DA /* SceneDelegate.swift in Sources */,
 				4A4CAE7626C29EF70044A3C1 /* keyboard.swift in Sources */,
@@ -242,18 +241,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		CE3EEC072559BA7300EE29DA /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CE3EEC082559BA7300EE29DA /* Base */,
-				4A007B7126B707A1007163E2 /* ja */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		CE3EEC0B2559BA7300EE29DA /* Debug */ = {
