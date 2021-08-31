@@ -74,17 +74,17 @@ struct ContentView: View {
                                                 Text("No.\(cellModel.batteryNo + 1)")
                                                 .font(.title)
                                             Spacer()
-                                            Text("Cell数:\(cellModel.cells + 1)")
-                                            }
+                                            Text("Cell:\(cellModel.cells + 1)")
+                                                .font(.title2)
+                                                }
                                                 HStack{
                                                     Text("容量:\(cellModel.btcapa)mhA")
-//                                                        .foregroundColor(Color.gray)
                                                     Spacer()
                                                     Text("購入日:\(dateFormat.string(from: cellModel.buyDate))")
                                                 }
                                                 HStack{
                                                     Text("備考:\(cellModel.otherInfo)")
-//                                                        .foregroundColor(Color.gray)
+                                                        .frame(width: 100.0, height: 2.0, alignment: .leading)
                                                     Spacer()
                                                     Text("使用日:\(dateFormat.string(from: cellModel.useDate))")
                                                 }

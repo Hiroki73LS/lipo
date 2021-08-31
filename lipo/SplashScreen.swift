@@ -14,13 +14,16 @@ struct LaunchScreen: View {
                     .padding()
                     HStack{
                         Image(systemName: "battery.100")
-                        .resizable()
-                        .frame(width: 50.0, height: 50.0, alignment: .leading)
-                        Image(systemName: "battery.100")
-                        .resizable()
-                        .frame(width: 50.0, height: 50.0, alignment: .leading)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 50.0, height: 50.0, alignment: .leading)
                         Image(systemName: "battery.100")
                             .resizable()
+                            .scaledToFit()
+                            .frame(width: 50.0, height: 50.0, alignment: .leading)
+                        Image(systemName: "battery.100")
+                            .resizable()
+                            .scaledToFit()
                             .frame(width: 50.0, height: 50.0, alignment: .leading)
                     }}}
             .onAppear {
