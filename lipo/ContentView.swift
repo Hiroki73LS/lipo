@@ -1,3 +1,4 @@
+import UIKit
 import SwiftUI
 import RealmSwift
 
@@ -98,7 +99,7 @@ struct ContentView: View {
 //                                                        cellModel.condition = false
                                                     }}
                                         } else {
-                                            Image(systemName: "battery.100")
+                                            Image(systemName: "battery.75")
                                                 .foregroundColor(.secondary)
                                                 .onTapGesture {
                                                     try? Realm().write {
@@ -121,7 +122,7 @@ struct ContentView: View {
                         }
                         .listRowBackground(Color.clear)
                     }
-                }
+}
                 .background(NavigationConfigurator { nc in
                     nc.navigationBar.barTintColor = #colorLiteral(red: 0.9033463001, green: 0.9756388068, blue: 0.9194290638, alpha: 1)
                     nc.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]

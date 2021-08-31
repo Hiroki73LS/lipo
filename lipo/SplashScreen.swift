@@ -27,7 +27,7 @@ struct LaunchScreen: View {
                             .frame(width: 50.0, height: 50.0, alignment: .leading)
                     }}}
             .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                     withAnimation {
                         isLoading = false
                     }

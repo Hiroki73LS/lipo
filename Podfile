@@ -8,4 +8,7 @@
   # Pods for lipo
   pod 'RealmSwift'
 
+  # Google-Mobile-Ads
+  pod 'Google-Mobile-Ads-SDK'
+
 end
