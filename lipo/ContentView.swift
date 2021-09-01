@@ -5,7 +5,8 @@ import GoogleMobileAds
 
 struct AdView: UIViewRepresentable {
     func makeUIView(context: Context) -> GADBannerView {
-        let banner = GADBannerView(adSize: kGADAdSizeBanner)
+        let banner = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+//        let banner = GADBannerView(adSize: kGADAdSizeBanner)
         // 以下は、バナー広告向けのテスト専用広告ユニットIDです。自身の広告ユニットIDと置き換えてください。
         banner.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         banner.rootViewController = UIApplication.shared.windows.first?.rootViewController
@@ -114,7 +115,7 @@ struct ContentView: View {
 //                                                        cellModel.condition = false
                                                     }}
                                         } else {
-                                            Image(systemName: "battery.75")
+                                            Image(systemName: "battery.100")
                                                 .foregroundColor(.secondary)
                                                 .onTapGesture {
                                                     try? Realm().write {
