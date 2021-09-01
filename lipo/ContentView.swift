@@ -1,6 +1,21 @@
 import UIKit
 import SwiftUI
 import RealmSwift
+import GoogleMobileAds
+
+struct AdView: UIViewRepresentable {
+    func makeUIView(context: Context) -> GADBannerView {
+        let banner = GADBannerView(adSize: kGADAdSizeBanner)
+        // 以下は、バナー広告向けのテスト専用広告ユニットIDです。自身の広告ユニットIDと置き換えてください。
+        banner.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        banner.rootViewController = UIApplication.shared.windows.first?.rootViewController
+        banner.load(GADRequest())
+        return banner
+    }
+
+    func updateUIView(_ uiView: GADBannerView, context: Context) {
+    }
+}
 
 struct NavigationConfigurator: UIViewControllerRepresentable {
     var configure: (UINavigationController) -> Void = { _ in }
@@ -122,7 +137,9 @@ struct ContentView: View {
                         }
                         .listRowBackground(Color.clear)
                     }
-}
+                    AdView()
+                        .frame(width: 320, height: 50)
+                }
                 .background(NavigationConfigurator { nc in
                     nc.navigationBar.barTintColor = #colorLiteral(red: 0.9033463001, green: 0.9756388068, blue: 0.9194290638, alpha: 1)
                     nc.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
