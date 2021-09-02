@@ -96,7 +96,6 @@ struct EnterView: View {
 
     
     var body: some View {
-
         NavigationView{
             ZStack{
                 backGroundColor.edgesIgnoringSafeArea(.all)
@@ -133,7 +132,7 @@ struct EnterView: View {
                                                 ForEach(1..<101){ _x in
                                                     Text("\(_x)")
                                                 }
-                            }.frame(minWidth: 0, maxWidth: 100, maxHeight: 100)
+                            }.frame(minWidth: 0, maxWidth: 100, maxHeight: 80)
                             .clipped()
                         }
                         TextField("Other info", text: $otherInfo)
@@ -197,12 +196,13 @@ struct EnterView: View {
                             }
                         }
                     }.padding()
+                    AdView()
+                        .frame(width: 320, height: 100)
                 }.onAppear{
                     self.keyboard.addObserver()
                 }.onDisappear{
                     self.keyboard.removeObserver()
                 }.padding(.bottom, keyboard.keyboardHeight)
-                
             }}
     }
 }

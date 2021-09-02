@@ -38,90 +38,92 @@ struct EditView: View {
         NavigationView{
             ZStack{
                 backGroundColor.edgesIgnoringSafeArea(.all)
-            VStack {
-                Text("編集画面").font(.largeTitle)
-                HStack{
-                Toggle(isOn: $condition) {
-                    Text("Best Condition Battery")
-                }}.padding(.horizontal, 20.0)
-            VStack{
-                Picker(selection: $cells,
-                       label: Text("Number of Cells")) {
-                    ForEach(0 ..< Cellhairetu.count) {
-                        Text(LocalizedStringKey(Cellhairetu[$0]))
-                    }
-                }.pickerStyle(SegmentedPickerStyle())
-                
-                Stepper(value: $btcapa ,in: 10...6000, step: 10) {
-                    Text("Battery Capacity : \(btcapa)mAh" )
-                }
-                Stepper(value: $btcapa  ,in: 10...6000, step: 100) {
-                    Text("( Step : 100mAh )")
-                }
-                Stepper(value: $btcapa  ,in: 10...6000, step: 1000) {
-                    Text("( Step : 1000mAh )")
-                }
-                DatePicker(selection: $buyDate, displayedComponents: .date,
-                           label: {Text("購入日時 (purchase date)")} )
-                DatePicker(selection: $useDate, displayedComponents: .date,
-                           label: {Text("使用開始 (Start date of use)")} )
-                HStack{
-                    Text("Battery No.")
-                    Picker(selection: self.$batteryNo, label: Text("BatteryNo")){
-                                        ForEach(1..<101){ _x in
-                                            Text("\(_x)")
-                                        }
-                    }.frame(minWidth: 0, maxWidth: 100, maxHeight: 100)
-                    .clipped()
-                }
-                TextField("Other info", text: $otherInfo)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                Divider()
-                Button(action: {
-                        self.alert = true
-//                        self.toSave = true
-        //-書き込み--------------------------
-                    let realm = try! Realm()
-                    let predicate = NSPredicate(format: "id == %@", id as CVarArg)
-                    let results = realm.objects(Model.self).filter(predicate).first
-                    try! realm.write {
-                        results?.condition = condition
-                        results?.batteryNo = batteryNo
-                        results?.btcapa = btcapa
-                        results?.otherInfo = otherInfo
-                        results?.cells = cells
-                        results?.isON = isON
-                        results?.buyDate = buyDate
-                        results?.useDate = useDate
+                VStack {
+                    Text("編集画面").font(.title)
+                    HStack{
+                        Toggle(isOn: $condition) {
+                            Text("Best Condition Battery")
+                        }}.padding(.horizontal, 20.0)
+                    VStack{
+                        Picker(selection: $cells,
+                               label: Text("Number of Cells")) {
+                            ForEach(0 ..< Cellhairetu.count) {
+                                Text(LocalizedStringKey(Cellhairetu[$0]))
+                            }
+                        }.pickerStyle(SegmentedPickerStyle())
+                        
+                        Stepper(value: $btcapa ,in: 10...6000, step: 10) {
+                            Text("Battery Capacity : \(btcapa)mAh" )
                         }
-        //-書き込み--------------------------
-                    
-                    print("\(alert)")
-                    _ = Alert(title: Text("確認"),
-                          message: Text("Battery No.[ \(batteryNo+1) ]を更新しました。"),
-                          dismissButton: .default(Text("OK"),
-                                                  action: {
-                                                    condition = false
-                                                    batteryNo = 0
-                                                    isON = false
-                                                    self.alert.toggle()
-                                                    self.presentationMode.wrappedValue.dismiss()
-                                                  }))
-
-                }){
-            Text("Save")
-                }
-                .padding()
-            }.padding()
-            }.onAppear{
-                self.keyboard.addObserver()
-            }.onDisappear{
-                self.keyboard.removeObserver()
-            }.padding(.bottom, keyboard.keyboardHeight)
-
+                        Stepper(value: $btcapa  ,in: 10...6000, step: 100) {
+                            Text("( Step : 100mAh )")
+                        }
+                        Stepper(value: $btcapa  ,in: 10...6000, step: 1000) {
+                            Text("( Step : 1000mAh )")
+                        }
+                        DatePicker(selection: $buyDate, displayedComponents: .date,
+                                   label: {Text("購入日時 (purchase date)")} )
+                        DatePicker(selection: $useDate, displayedComponents: .date,
+                                   label: {Text("使用開始 (Start date of use)")} )
+                        HStack{
+                            Text("Battery No.")
+                            Picker(selection: self.$batteryNo, label: Text("BatteryNo")){
+                                ForEach(1..<101){ _x in
+                                    Text("\(_x)")
+                                }
+                            }.frame(minWidth: 0, maxWidth: 100, maxHeight: 80)
+                            .clipped()
+                        }
+                        TextField("Other info", text: $otherInfo)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        Divider()
+                        Button(action: {
+                            self.alert = true
+                            //                        self.toSave = true
+                            //-書き込み--------------------------
+                            let realm = try! Realm()
+                            let predicate = NSPredicate(format: "id == %@", id as CVarArg)
+                            let results = realm.objects(Model.self).filter(predicate).first
+                            try! realm.write {
+                                results?.condition = condition
+                                results?.batteryNo = batteryNo
+                                results?.btcapa = btcapa
+                                results?.otherInfo = otherInfo
+                                results?.cells = cells
+                                results?.isON = isON
+                                results?.buyDate = buyDate
+                                results?.useDate = useDate
+                            }
+                            //-書き込み--------------------------
+                            
+                            print("\(alert)")
+                            _ = Alert(title: Text("確認"),
+                                      message: Text("Battery No.[ \(batteryNo+1) ]を更新しました。"),
+                                      dismissButton: .default(Text("OK"),
+                                                              action: {
+                                                                condition = false
+                                                                batteryNo = 0
+                                                                isON = false
+                                                                self.alert.toggle()
+                                                                self.presentationMode.wrappedValue.dismiss()
+                                                              }))
+                            
+                        }){
+                            Text("Save")
+                        }
+                        .padding()
+                    }.padding()
+                    AdView()
+                        .frame(width: 320, height: 100)
+                }.onAppear{
+                    self.keyboard.addObserver()
+                }.onDisappear{
+                    self.keyboard.removeObserver()
+                }.padding(.bottom, keyboard.keyboardHeight)
+                
             }}
-        }
     }
+}
 
 struct EditView_Previews: PreviewProvider {
     
