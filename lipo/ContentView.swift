@@ -93,7 +93,7 @@ struct ContentView: View {
                                 cellsDetail = cellModel.cells
                                 self.showAlert = true
                             }, label: {
-                                NavigationLink(destination: EditView(erandaNo: erandaNo, id: $idDetail, condition: $conditionDetail, btcapa: $btcapaDetail, batteryNo: $batteryNoDetail, otherInfo: $otherInfoDetail, isON: $isONDetail, buyDate: $buyDateDetail, useDate: $useDateDetail, cells: $cellsDetail), isActive: $showAlert) {
+                                NavigationLink(destination: EditView(id: $idDetail, condition: $conditionDetail, btcapa: $btcapaDetail, batteryNo: $batteryNoDetail, otherInfo: $otherInfoDetail, isON: $isONDetail, buyDate: $buyDateDetail, useDate: $useDateDetail, cells: $cellsDetail), isActive: $showAlert) {
                                     HStack{
                                         VStack(alignment:.leading) {
                                             VStack{
