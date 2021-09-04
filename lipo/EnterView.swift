@@ -37,6 +37,8 @@ struct ContentViewCellModel {
 
 class viewModel: ObservableObject {
     
+    private var ArrayCount :Int = 0
+    private var intArray = [Int]()
     private var token: NotificationToken?
     private var myModelResults = try? Realm().objects(Model.self).sorted(byKeyPath: "batteryNo", ascending: true)
     @Published var cellModels: [ContentViewCellModel] = []
@@ -45,13 +47,17 @@ class viewModel: ObservableObject {
         token = myModelResults?.observe { [weak self] _ in
             self?.cellModels = self?.myModelResults?.map {ContentViewCellModel(id: $0.id, condition: $0.condition, btcapa: $0.btcapa, batteryNo: $0.batteryNo, otherInfo: $0.otherInfo, isON: $0.isON, buyDate: $0.buyDate, useDate: $0.useDate, cells: $0.cells) } ?? []
         }
-        //RealmからBatteryNoを取得して配列に変換する
+//RealmからBatteryNoを取得して配列に変換する-------------------
         let realm = try? Realm()
-        let btNo = realm?.objects(Model.self).filter("batteryNo > 0")
-        print("配列の数：\(btNo?.count ?? 99)")
-        print(btNo)
-}
-    
+        let btNo = realm?.objects(Model.self).filter("batteryNo >= 0")
+        ArrayCount = btNo!.count //配列の数を代入
+        for i in 0 ..< ArrayCount {
+            intArray.append(btNo![i].batteryNo)
+        }
+        print(intArray)      // ["A", "B", "C", "D"]
+//RealmからBatteryNoを取得して配列に変換する-------------------
+    }
+
     deinit {
         token?.invalidate()
     }
