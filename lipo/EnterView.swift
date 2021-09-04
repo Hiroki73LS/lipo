@@ -39,6 +39,9 @@ class viewModel: ObservableObject {
     
     private var ArrayCount :Int = 0
     private var intArray = [Int]()
+    private var motoArray = Array(1...99)
+    private var sakujyo :Int = 0
+
     private var token: NotificationToken?
     private var myModelResults = try? Realm().objects(Model.self).sorted(byKeyPath: "batteryNo", ascending: true)
     @Published var cellModels: [ContentViewCellModel] = []
@@ -47,16 +50,27 @@ class viewModel: ObservableObject {
         token = myModelResults?.observe { [weak self] _ in
             self?.cellModels = self?.myModelResults?.map {ContentViewCellModel(id: $0.id, condition: $0.condition, btcapa: $0.btcapa, batteryNo: $0.batteryNo, otherInfo: $0.otherInfo, isON: $0.isON, buyDate: $0.buyDate, useDate: $0.useDate, cells: $0.cells) } ?? []
         }
-//RealmからBatteryNoを取得して配列に変換する-------------------
+//RealmからBatteryNoを取得して配列に格納してソート↓-------------------
         let realm = try? Realm()
-        let btNo = realm?.objects(Model.self).filter("batteryNo >= 0")
+        let btNo = realm?.objects(Model.self)
         ArrayCount = btNo!.count //配列の数を代入
         for i in 0 ..< ArrayCount {
             intArray.append(btNo![i].batteryNo)
+            intArray.sort()
         }
-        print(intArray)      // ["A", "B", "C", "D"]
-//RealmからBatteryNoを取得して配列に変換する-------------------
+//RealmからBatteryNoを取得して配列に格納してソート↑-------------------
+
+//配列から要素のインデックス番号を検索し、該当するインデックス番号の要素を削除↓-------------------
+
+        for i in 0 ..< ArrayCount {
+            sakujyo = intArray[i]
+            if let firstIndex = motoArray.index(of: sakujyo + 1) {
+                motoArray.remove(at: firstIndex)
+        }
     }
+        print(motoArray)      // ["A", "B", "C", "D"]
+//配列から要素のインデックス番号を検索し、該当するインデックス番号の要素を削除↑-------------------
+}
 
     deinit {
         token?.invalidate()
