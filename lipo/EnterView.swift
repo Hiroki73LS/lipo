@@ -45,6 +45,11 @@ class viewModel: ObservableObject {
         token = myModelResults?.observe { [weak self] _ in
             self?.cellModels = self?.myModelResults?.map {ContentViewCellModel(id: $0.id, condition: $0.condition, btcapa: $0.btcapa, batteryNo: $0.batteryNo, otherInfo: $0.otherInfo, isON: $0.isON, buyDate: $0.buyDate, useDate: $0.useDate, cells: $0.cells) } ?? []
         }
+        //RealmからBatteryNoを取得して配列に変換する
+        let realm = try? Realm()
+        let btNo = realm?.objects(Model.self).filter("batteryNo > 0")
+        print("配列の数：\(btNo?.count ?? 99)")
+        print(btNo)
 }
     
     deinit {
@@ -197,7 +202,6 @@ struct EnterView: View {
                         }
                     }.padding()
                     AdView()
-                        .frame(width: 320, height: 100)
                 }.onAppear{
                     self.keyboard.addObserver()
                 }.onDisappear{

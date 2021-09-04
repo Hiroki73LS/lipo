@@ -114,7 +114,8 @@ struct EditView: View {
                         .padding()
                     }.padding()
                     AdView()
-                        .frame(width: 320, height: 100)
+                    Spacer()
+                        .frame(width: 320, height: 25)
                 }.onAppear{
                     self.keyboard.addObserver()
                 }.onDisappear{
