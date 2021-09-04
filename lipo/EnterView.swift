@@ -157,7 +157,7 @@ struct EnterView: View {
                             Text("Battery No.")
                             Picker(selection: self.$batteryNo, label: Text("BatteryNo")){
                                 ForEach(0 ..< moto.motoArray.count) { num in
-                                    Text("\(self.moto.motoArray[num])")
+                                    Text("\(self.moto.motoArray[num])").font(.title2)
                                 }
                             }.frame(minWidth: 0, maxWidth: 100, maxHeight: 80)
                             .clipped()
@@ -166,7 +166,7 @@ struct EnterView: View {
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         Divider()
                         Button(action: {
-                            if self.otherInfo == "010101" {
+                            if self.otherInfo == "0101011234" {
                                 //-裏コマンド実施確認用の動き--------------------------
                                 otherInfo = "000"
                                 //-Realm全削除--------------------------
@@ -212,7 +212,7 @@ struct EnterView: View {
                             case true:
                                 return
                                     Alert(title: Text("確認"),
-                                          message: Text("Battery No.[ \(moto.motoArray[batteryNo]) ]を登録しました。"),
+                                          message: Text("\(batteryNo)Battery No.[ \(moto.motoArray[batteryNo]) ]を登録しました。"),
                                           dismissButton: .default(Text("OK"),
                                                                   action: {
                                                                     condition = false
