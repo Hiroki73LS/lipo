@@ -14,8 +14,8 @@ struct AdView: UIViewRepresentable {
         //-----------テストデバイス向けのコード↑
         
         // 以下は、バナー広告向けのテスト専用広告ユニットIDです。自身の広告ユニットIDと置き換えてください。
-//        banner.adUnitID = "ca-app-pub-3940256099942544/6300978111" //sample広告ID
-        banner.adUnitID = "ca-app-pub-1023155372875273/1422425245" //本物広告ID
+        banner.adUnitID = "ca-app-pub-3940256099942544/6300978111" //sample広告ID
+//        banner.adUnitID = "ca-app-pub-1023155372875273/1422425245" //本物広告ID
         
         banner.rootViewController = UIApplication.shared.windows.first?.rootViewController
         banner.load(GADRequest())
@@ -39,8 +39,10 @@ struct NavigationConfigurator: UIViewControllerRepresentable {
 }
 
 struct ContentView: View {
+    
     @ObservedObject var profile = UserProfile()
     @ObservedObject var model = viewModel()
+    @State private var erandaNo = 1
     @State private var idDetail = ""
     @State private var conditionDetail : Bool = false
     @State private var btcapaDetail : Int = 0
@@ -91,7 +93,7 @@ struct ContentView: View {
                                 cellsDetail = cellModel.cells
                                 self.showAlert = true
                             }, label: {
-                                NavigationLink(destination: EditView(id: $idDetail, condition: $conditionDetail, btcapa: $btcapaDetail, batteryNo: $batteryNoDetail, otherInfo: $otherInfoDetail, isON: $isONDetail, buyDate: $buyDateDetail, useDate: $useDateDetail, cells: $cellsDetail), isActive: $showAlert) {
+                                NavigationLink(destination: EditView(erandaNo: erandaNo, id: $idDetail, condition: $conditionDetail, btcapa: $btcapaDetail, batteryNo: $batteryNoDetail, otherInfo: $otherInfoDetail, isON: $isONDetail, buyDate: $buyDateDetail, useDate: $useDateDetail, cells: $cellsDetail), isActive: $showAlert) {
                                     HStack{
                                         VStack(alignment:.leading) {
                                             VStack{

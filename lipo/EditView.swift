@@ -1,9 +1,27 @@
 import SwiftUI
 import RealmSwift
 
+class syokika: ObservableObject {
+    @State var batteryNo : Int = 1
+    @State var erandaNo : Int = 0
+    @ObservedObject var moto = viewModel()
 
+    init() {
+        moto.motoArray.append(moto.motoArray2[batteryNo])
+        moto.motoArray.sort()
+        if let firstIndex2 = moto.motoArray.index(of: moto.motoArray2[batteryNo]) {
+            erandaNo = firstIndex2
+            print("BatteryNoは：\(batteryNo)")
+            print("選んだNoは：\(erandaNo)")
+        }
+    }
+}
     
 struct EditView: View {
+    
+    @State var erandaNo : Int
+    let syo = syokika()
+    @ObservedObject var moto = viewModel()
     @State var Cellhairetu = ["1","2","3","4","5","6"]
     @ObservedObject var keyboard = KeyboardObserver()
     @ObservedObject var profile = UserProfile()
@@ -31,10 +49,8 @@ struct EditView: View {
     }
     
     let backGroundColor = LinearGradient(gradient: Gradient(colors: [Color.white, Color.green]), startPoint: .top, endPoint: .bottom)
-       
+    
     var body: some View {
-
-        
         NavigationView{
             ZStack{
                 backGroundColor.edgesIgnoringSafeArea(.all)
@@ -67,10 +83,10 @@ struct EditView: View {
                                    label: {Text("使用開始 (Start date of use)")} )
                         HStack{
                             Text("Battery No.")
-                            Picker(selection: self.$batteryNo, label: Text("BatteryNo")){
-                                ForEach(1..<101){ _x in
-                                    Text("\(_x)")
-                                }
+                            Picker(selection: $erandaNo, label: Text("BatteryNo")){
+                                    ForEach(0 ..< moto.motoArray.count) { num in
+                                        Text("\(self.moto.motoArray[num])")
+                                    }
                             }.frame(minWidth: 0, maxWidth: 100, maxHeight: 80)
                             .clipped()
                         }
@@ -86,7 +102,7 @@ struct EditView: View {
                             let results = realm.objects(Model.self).filter(predicate).first
                             try! realm.write {
                                 results?.condition = condition
-                                results?.batteryNo = batteryNo
+                                results?.batteryNo = erandaNo
                                 results?.btcapa = btcapa
                                 results?.otherInfo = otherInfo
                                 results?.cells = cells
@@ -127,7 +143,7 @@ struct EditView: View {
 }
 
 struct EditView_Previews: PreviewProvider {
-    
+
     @State static var buyDate: Date = {
             let df = DateFormatter()
             df.dateFormat = "MM/dd/yyyy"
@@ -150,8 +166,9 @@ struct EditView_Previews: PreviewProvider {
     @State static var otherInfo = ""
     @State static var isON = true
     @State static var cells = 3
-    
+    @State static var erandaNo = 3
+
     static var previews: some View {
-        EditView(id: $id, condition: $condition, btcapa: $btcapa, batteryNo: $batteryNo, otherInfo: $otherInfo, isON: $isON, buyDate: $buyDate, useDate: $useDate, cells: $cells)
+        EditView(erandaNo: erandaNo, id: $id, condition: $condition, btcapa: $btcapa, batteryNo: $batteryNo, otherInfo: $otherInfo, isON: $isON, buyDate: $buyDate, useDate: $useDate, cells: $cells)
     }
 }

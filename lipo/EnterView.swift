@@ -39,7 +39,8 @@ class viewModel: ObservableObject {
     
     private var ArrayCount :Int = 0
     private var intArray = [Int]()
-    private var motoArray = Array(1...99)
+    var motoArray = Array(1...99)
+    var motoArray2 = Array(1...99)
     private var sakujyo :Int = 0
 
     private var token: NotificationToken?
@@ -68,7 +69,7 @@ class viewModel: ObservableObject {
                 motoArray.remove(at: firstIndex)
         }
     }
-        print(motoArray)      // ["A", "B", "C", "D"]
+//        print(motoArray)      // ["A", "B", "C", "D"]
 //配列から要素のインデックス番号を検索し、該当するインデックス番号の要素を削除↑-------------------
 }
 
@@ -79,6 +80,7 @@ class viewModel: ObservableObject {
     
 struct EnterView: View {
 
+    @ObservedObject var moto = viewModel()
     @ObservedObject var profile2 = UserProfile2()
 
     @ObservedObject var keyboard = KeyboardObserver()
@@ -154,9 +156,9 @@ struct EnterView: View {
                         HStack{
                             Text("Battery No.")
                             Picker(selection: self.$batteryNo, label: Text("BatteryNo")){
-                                                ForEach(1..<101){ _x in
-                                                    Text("\(_x)")
-                                                }
+                                ForEach(0 ..< moto.motoArray.count) { num in
+                                    Text("\(self.moto.motoArray[num])")
+                                }
                             }.frame(minWidth: 0, maxWidth: 100, maxHeight: 80)
                             .clipped()
                         }
@@ -181,7 +183,7 @@ struct EnterView: View {
 
                                 let models = Model()
                                 models.condition = condition
-                                models.batteryNo = batteryNo
+                                models.batteryNo = moto.motoArray[batteryNo] - 1
                                 models.btcapa = profile2.oldcapa
                                 models.otherInfo = otherInfo
                                 models.cells = cells
@@ -210,7 +212,7 @@ struct EnterView: View {
                             case true:
                                 return
                                     Alert(title: Text("確認"),
-                                          message: Text("Battery No.[ \(batteryNo+1) ]を登録しました。"),
+                                          message: Text("Battery No.[ \(moto.motoArray[batteryNo]) ]を登録しました。"),
                                           dismissButton: .default(Text("OK"),
                                                                   action: {
                                                                     condition = false
