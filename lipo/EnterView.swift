@@ -131,6 +131,8 @@ struct EnterView: View {
                     HStack{
                         Toggle(isOn: $condition) {
                             Text("Best Condition Battery")
+                                .font(.title2)
+                                .bold()
                         }}.padding(.horizontal, 20.0)
                     VStack{
                         Picker(selection: $cells,
@@ -142,19 +144,24 @@ struct EnterView: View {
                         
                         Stepper(value: $profile2.oldcapa ,in: 10...6000, step: 10) {
                             Text("Battery Capacity : \(profile2.oldcapa)mAh" )
+                                .bold()
                         }
                         Stepper(value: $profile2.oldcapa  ,in: 10...6000, step: 100) {
                             Text("( Step : 100mAh )")
+                                .foregroundColor(.orange)
+                                .bold()
                         }
                         Stepper(value: $profile2.oldcapa  ,in: 10...6000, step: 1000) {
                             Text("( Step : 1000mAh )")
+                                .foregroundColor(.orange)
+                                .bold()
                         }
                         DatePicker(selection: $buyDate, displayedComponents: .date,
-                                   label: {Text("購入日時 (purchase date)")} )
+                                   label: {Text("購入日時 (purchase date)").bold()} )
                         DatePicker(selection: $useDate, displayedComponents: .date,
-                                   label: {Text("使用開始 (Start date of use)")} )
+                                   label: {Text("使用開始 (Start date of use)").bold()} )
                         HStack{
-                            Text("Battery No.")
+                            Text("Battery No.").bold()
                             Picker(selection: self.$batteryNo, label: Text("BatteryNo")){
                                 ForEach(0 ..< moto.motoArray.count) { num in
                                     Text("\(self.moto.motoArray[num])").font(.title2)
@@ -200,8 +207,12 @@ struct EnterView: View {
                             }
                         }){
                             Text("Save")
+                                .frame(width: 150, height: 20)
                         }
                         .padding()
+                        .accentColor(Color.white)
+                        .background(Color.blue)
+                        .cornerRadius(26)
                         .alert(isPresented: $alert1) {
                             switch(alert) {
                             case false:

@@ -40,6 +40,8 @@ struct EditView: View {
                     HStack{
                         Toggle(isOn: $condition) {
                             Text("Best Condition Battery")
+                                .font(.title2)
+                                .bold()
                         }}.padding(.horizontal, 20.0)
                     VStack{
                         Picker(selection: $cells,
@@ -51,19 +53,24 @@ struct EditView: View {
                         
                         Stepper(value: $btcapa ,in: 10...6000, step: 10) {
                             Text("Battery Capacity : \(btcapa)mAh" )
+                                .bold()
                         }
                         Stepper(value: $btcapa  ,in: 10...6000, step: 100) {
                             Text("( Step : 100mAh )")
+                                .foregroundColor(.orange)
+                                .bold()
                         }
                         Stepper(value: $btcapa  ,in: 10...6000, step: 1000) {
                             Text("( Step : 1000mAh )")
+                                .foregroundColor(.orange)
+                                .bold()
                         }
                         DatePicker(selection: $buyDate, displayedComponents: .date,
-                                   label: {Text("購入日時 (purchase date)")} )
+                                   label: {Text("購入日時 (purchase date)").bold()} )
                         DatePicker(selection: $useDate, displayedComponents: .date,
-                                   label: {Text("使用開始 (Start date of use)")} )
+                                   label: {Text("使用開始 (Start date of use)").bold()} )
                         HStack{
-                            Text("Battery No.")
+                            Text("Battery No.").bold()
                             Picker(selection: $batteryNo, label: Text("BatteryNo")){
                                         Text("\(batteryNo + 1)")
                             }.frame(minWidth: 0, maxWidth: 100, maxHeight: 80)
@@ -105,8 +112,12 @@ struct EditView: View {
                             
                         }){
                             Text("Save")
+                                .frame(width: 150, height: 20)
                         }
                         .padding()
+                        .accentColor(Color.white)
+                        .background(Color.blue)
+                        .cornerRadius(26)
                     }.padding()
                     AdView()
                     Spacer()
