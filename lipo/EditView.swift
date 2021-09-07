@@ -114,10 +114,7 @@ struct EditView: View {
                             Text("Save")
                                 .frame(width: 150, height: 20)
                         }
-                        .padding()
-                        .accentColor(Color.white)
-                        .background(Color.blue)
-                        .cornerRadius(26)
+                        .buttonStyle(MyButtonStyle())
                     }.padding()
                     AdView()
                     Spacer()

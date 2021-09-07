@@ -23,6 +23,18 @@ class UserProfile2: ObservableObject {
     }
 }
 
+struct MyButtonStyle: ButtonStyle {
+  func makeBody(configuration: Self.Configuration) -> some View {
+    configuration.label
+        .padding()
+        .foregroundColor(Color.white)
+        .background(Color.blue)
+        .cornerRadius(12.0)
+        .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
+        .opacity(configuration.isPressed ? 0.4 : 1)
+    }
+}
+
 struct ContentViewCellModel {
     let id: String
     let condition : Bool
@@ -209,10 +221,7 @@ struct EnterView: View {
                             Text("Save")
                                 .frame(width: 150, height: 20)
                         }
-                        .padding()
-                        .accentColor(Color.white)
-                        .background(Color.blue)
-                        .cornerRadius(26)
+                        .buttonStyle(MyButtonStyle())
                         .alert(isPresented: $alert1) {
                             switch(alert) {
                             case false:
