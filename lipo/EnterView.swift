@@ -139,21 +139,28 @@ struct EnterView: View {
             ZStack{
                 backGroundColor.edgesIgnoringSafeArea(.all)
                 VStack {
-                    Text("バッテリー情報入力画面").font(.title)
+                    Text("Input screen").font(.largeTitle)
                     HStack{
                         Toggle(isOn: $condition) {
                             Text("Best Condition Battery")
                                 .font(.title2)
                                 .bold()
-                        }}.padding(.horizontal, 20.0)
+                        }}.padding(.horizontal)
                     VStack{
+                        HStack{
+                            Text("Choose No. of Cells")
+                                .font(.callout)
+                                .bold()
+                            Spacer()
+                        }
                         Picker(selection: $cells,
                                label: Text("Number of Cells")) {
                             ForEach(0 ..< Cellhairetu.count) {
                                 Text(LocalizedStringKey(Cellhairetu[$0]))
                             }
                         }.pickerStyle(SegmentedPickerStyle())
-                        
+                    }.padding(.horizontal)
+                    VStack{
                         Stepper(value: $profile2.oldcapa ,in: 10...6000, step: 10) {
                             Text("Battery Capacity : \(profile2.oldcapa)mAh" )
                                 .bold()
@@ -178,7 +185,7 @@ struct EnterView: View {
                                 ForEach(0 ..< moto.motoArray.count) { num in
                                     Text("\(self.moto.motoArray[num])").font(.title2)
                                 }
-                            }.frame(minWidth: 0, maxWidth: 100, maxHeight: 80)
+                            }.frame(minWidth: 0, maxWidth: 100, maxHeight: 60)
                             .clipped()
                         }
                         TextField("Other info", text: $otherInfo)
@@ -242,7 +249,7 @@ struct EnterView: View {
                                                                   }))
                             }
                         }
-                    }.padding()
+                    }.padding(.horizontal) 
                     AdView()
                 }.onAppear{
                     self.keyboard.addObserver()

@@ -10,7 +10,17 @@ struct Setting: View {
             UITableViewCell.appearance().backgroundColor = .clear
         }
     
-    var body: some View {
+    @State private var color = Color.white
+        var body: some View {
+            ZStack{
+                ColorPicker(selection: $color, label: {
+                    Text("SelectColor")
+                })
+                .padding()
+//                .onChange(of: color, perform: { value in
+//                    print(color)
+//                })
+            }
         
         NavigationView {
         ZStack{

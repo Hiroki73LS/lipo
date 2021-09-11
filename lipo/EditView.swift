@@ -36,21 +36,28 @@ struct EditView: View {
             ZStack{
                 backGroundColor.edgesIgnoringSafeArea(.all)
                 VStack {
-                    Text("編集画面").font(.title)
+                    Text("Editing screen").font(.largeTitle)
                     HStack{
                         Toggle(isOn: $condition) {
                             Text("Best Condition Battery")
                                 .font(.title2)
                                 .bold()
-                        }}.padding(.horizontal, 20.0)
+                        }}.padding(.horizontal)
                     VStack{
+                        HStack{
+                            Text("Choose No. of Cells")
+                                .font(.callout)
+                                .bold()
+                            Spacer()
+                        }
                         Picker(selection: $cells,
                                label: Text("Number of Cells")) {
                             ForEach(0 ..< Cellhairetu.count) {
                                 Text(LocalizedStringKey(Cellhairetu[$0]))
                             }
                         }.pickerStyle(SegmentedPickerStyle())
-                        
+                    }.padding(.horizontal) 
+                    VStack{
                         Stepper(value: $btcapa ,in: 10...6000, step: 10) {
                             Text("Battery Capacity : \(btcapa)mAh" )
                                 .bold()
@@ -73,7 +80,7 @@ struct EditView: View {
                             Text("Battery No.").bold()
                             Picker(selection: $batteryNo, label: Text("BatteryNo")){
                                         Text("\(batteryNo + 1)")
-                            }.frame(minWidth: 0, maxWidth: 100, maxHeight: 80)
+                            }.frame(minWidth: 0, maxWidth: 100, maxHeight: 60)
                             .clipped()
                         }
                         TextField("Other info", text: $otherInfo)
@@ -115,7 +122,7 @@ struct EditView: View {
                                 .frame(width: 150, height: 20)
                         }
                         .buttonStyle(MyButtonStyle())
-                    }.padding()
+                    }.padding(.horizontal) 
                     AdView()
                     Spacer()
                         .frame(width: 320, height: 25)
