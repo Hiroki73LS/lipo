@@ -45,15 +45,7 @@ struct Setting: View {
             ZStack{
                 backGroundColor.edgesIgnoringSafeArea(.all)
                 VStack{
-                    VStack{
-                        Text("ColorSetting & Info").font(.largeTitle)
-                        ColorPicker(selection: $color1, label: {
-                            Text("Select BackgroundColor(top)").bold()
-                        })
-                        ColorPicker(selection: $color2, label: {
-                            Text("Select BackgroundColor(bottom)").bold()
-                        })}
-                        .padding()
+                        Text("Number of Batteries").font(.largeTitle)
                     Spacer()
                         .frame(width: 320, height: 100)
                     HStack{

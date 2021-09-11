@@ -121,8 +121,8 @@ struct EnterView: View {
         return dformat
     }
     
-    let backGroundColor = LinearGradient(gradient: Gradient(colors: [Color(red: 0.5, green: 0.5, blue: 0.5, opacity: 0.5),Color(red: 0.8, green: 1.0, blue: 0.4, opacity: 0.2)]), startPoint: .top, endPoint: .bottom)
-    
+    let backGroundColor = LinearGradient(gradient: Gradient(colors: [Color.white, Color.green]), startPoint: .top, endPoint: .bottom)
+
     init() {
             UITableView.appearance().backgroundColor = .clear
             UITableViewCell.appearance().backgroundColor = .clear
@@ -190,16 +190,6 @@ struct EnterView: View {
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         Divider()
                         Button(action: {
-                            if self.otherInfo == "0101011234" {
-                                //-裏コマンド実施確認用の動き--------------------------
-                                otherInfo = "000"
-                                //-Realm全削除--------------------------
-                                let realm = try! Realm()
-                                try! realm.write {
-                                    realm.deleteAll()
-                                }
-                                //-Realm全削除--------------------------
-                            } else {
                                 self.alert1.toggle()
                                 self.toSave = true
                                 //-書き込み--------------------------
@@ -221,7 +211,6 @@ struct EnterView: View {
                                 }
                                 //-書き込み--------------------------
                                 self.alert = true
-                            }
                         }){
                             Text("Save")
                                 .frame(width: 150, height: 20)
