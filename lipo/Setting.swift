@@ -1,3 +1,4 @@
+import UIKit
 import SwiftUI
 import RealmSwift
 
@@ -28,8 +29,8 @@ class Cellof: ObservableObject {
 struct Setting: View {
     
     @ObservedObject var cellof = Cellof()
-    @State private var color1 = Color.white
-    @State private var color2 = Color.green
+    @State var color1 = Color.white
+    @State var color2 = Color.green
     @ObservedObject var profile = UserProfile()
     
     let backGroundColor = LinearGradient(gradient: Gradient(colors: [Color.white, Color.green]), startPoint: .top, endPoint: .bottom)
@@ -57,7 +58,7 @@ struct Setting: View {
                         .frame(width: 320, height: 100)
                     HStack{
                         VStack(alignment: .leading) {
-                            Text("全バッテリー ： ")
+                            Text("全バッテリー ： ").bold()
                             Text("　１セル ： ")
                             Text("　２セル ： ")
                             Text("　３セル ： ")
@@ -66,7 +67,7 @@ struct Setting: View {
                             Text("　６セル ： ")
                         }.font(.title)
                         VStack(alignment: .center) {
-                            Text("\(self.cellof.cellof0)")
+                            Text("\(self.cellof.cellof0)").bold()
                             Text("\(self.cellof.cellof1)")
                             Text("\(self.cellof.cellof2)")
                             Text("\(self.cellof.cellof3)")
@@ -75,7 +76,7 @@ struct Setting: View {
                             Text("\(self.cellof.cellof6)")
                         }.font(.title)
                         VStack(alignment: .leading) {
-                            Text("個")
+                            Text("個").bold()
                             Text("個")
                             Text("個")
                             Text("個")
@@ -97,29 +98,26 @@ struct Setting: View {
 
 
 class UserProfile: ObservableObject {
-    /// 選択肢１
-    @Published var username: String {
+    @Published var UD1: String {
         didSet {
-            UserDefaults.standard.set(username, forKey: "username")
+            UserDefaults.standard.set(UD1, forKey: "UD1")
         }
     }
-    /// 選択肢２
-    @Published var username2: String {
+    @Published var UD2: String {
         didSet {
-            UserDefaults.standard.set(username2, forKey: "username2")
+            UserDefaults.standard.set(UD2, forKey: "UD2")
         }
     }
-    /// 選択肢３
-    @Published var username3: String {
+    @Published var UD3: String {
         didSet {
-            UserDefaults.standard.set(username3, forKey: "username3")
+            UserDefaults.standard.set(UD3, forKey: "UD3")
         }
     }
-    /// 初期化処理
+
     init() {
-        username = UserDefaults.standard.string(forKey: "username") ?? ""
-        username2 = UserDefaults.standard.string(forKey: "username2") ?? ""
-        username3 = UserDefaults.standard.string(forKey: "username2") ?? ""
+        UD1 = UserDefaults.standard.string(forKey: "UD1") ?? ""
+        UD2 = UserDefaults.standard.string(forKey: "UD2") ?? ""
+        UD3 = UserDefaults.standard.string(forKey: "UD3") ?? ""
     }
 }
 
