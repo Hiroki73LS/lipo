@@ -1,6 +1,6 @@
 import SwiftUI
 import RealmSwift
-    
+
 struct EditView: View {
     
     @State var Cellhairetu = ["1","2","3","4","5","6"]
@@ -17,12 +17,12 @@ struct EditView: View {
     @Binding var buyDate: Date
     @Binding var useDate: Date
     @Binding var cells: Int
-
+    
     @State private var alert = false
     @State private var sentakusi = ""
     @Environment(\.presentationMode) var presentationMode
-
-
+    
+    
     var dateFormat: DateFormatter {
         let dformat = DateFormatter()
         dformat.dateFormat = "yyyy/M/d h:mm"
@@ -79,7 +79,7 @@ struct EditView: View {
                         HStack{
                             Text("Battery No.").bold()
                             Picker(selection: $batteryNo, label: Text("BatteryNo")){
-                                        Text("\(batteryNo + 1)")
+                                Text("\(batteryNo + 1)")
                             }.frame(minWidth: 0, maxWidth: 100, maxHeight: 60)
                             .clipped()
                         }
@@ -137,22 +137,22 @@ struct EditView: View {
 }
 
 struct EditView_Previews: PreviewProvider {
-
+    
     @State static var buyDate: Date = {
-            let df = DateFormatter()
-            df.dateFormat = "MM/dd/yyyy"
-            df.locale = Locale(identifier: "en_us_POSIX")
-            //df.timeZone = TimeZone(identifier: "UTC")
-            return df.date(from: "4/4/2020")!
-        }()
+        let df = DateFormatter()
+        df.dateFormat = "MM/dd/yyyy"
+        df.locale = Locale(identifier: "en_us_POSIX")
+        //df.timeZone = TimeZone(identifier: "UTC")
+        return df.date(from: "4/4/2020")!
+    }()
     @State static var useDate: Date = {
-            let df = DateFormatter()
-            df.dateFormat = "MM/dd/yyyy"
-            df.locale = Locale(identifier: "en_us_POSIX")
-            //df.timeZone = TimeZone(identifier: "UTC")
-            return df.date(from: "4/4/2020")!
-        }()
-
+        let df = DateFormatter()
+        df.dateFormat = "MM/dd/yyyy"
+        df.locale = Locale(identifier: "en_us_POSIX")
+        //df.timeZone = TimeZone(identifier: "UTC")
+        return df.date(from: "4/4/2020")!
+    }()
+    
     @State static var id = "UUID"
     @State static var condition = true
     @State static var btcapa = 100
@@ -160,7 +160,7 @@ struct EditView_Previews: PreviewProvider {
     @State static var otherInfo = ""
     @State static var isON = true
     @State static var cells = 3
-
+    
     static var previews: some View {
         EditView(id: $id, condition: $condition, btcapa: $btcapa, batteryNo: $batteryNo, otherInfo: $otherInfo, isON: $isON, buyDate: $buyDate, useDate: $useDate, cells: $cells)
     }

@@ -13,7 +13,7 @@ class Cellof: ObservableObject {
     var cellof6 : Int = 0
     
     init(){
-//セルごとの登録数を取得↓-------------------
+        //セルごとの登録数を取得↓-------------------
         let realm = try? Realm()
         cellof0 = realm?.objects(Model.self).count ?? 99
         cellof1 = realm?.objects(Model.self).filter("cells == 0").count ?? 99
@@ -22,7 +22,7 @@ class Cellof: ObservableObject {
         cellof4 = realm?.objects(Model.self).filter("cells == 3").count ?? 99
         cellof5 = realm?.objects(Model.self).filter("cells == 4").count ?? 99
         cellof6 = realm?.objects(Model.self).filter("cells == 5").count ?? 99
-//セルごとの登録数を取得↑-------------------
+        //セルごとの登録数を取得↑-------------------
     }
 }
 
@@ -38,14 +38,14 @@ struct Setting: View {
     init() {
         UITableView.appearance().backgroundColor = .clear
         UITableViewCell.appearance().backgroundColor = .clear
-        }
-
+    }
+    
     var body: some View {
         NavigationView {
             ZStack{
                 backGroundColor.edgesIgnoringSafeArea(.all)
                 VStack{
-                        Text("Number of Batteries").font(.largeTitle)
+                    Text("Number of Batteries").font(.largeTitle)
                     Spacer()
                         .frame(width: 320, height: 100)
                     HStack{
@@ -105,7 +105,7 @@ class UserProfile: ObservableObject {
             UserDefaults.standard.set(UD3, forKey: "UD3")
         }
     }
-
+    
     init() {
         UD1 = UserDefaults.standard.string(forKey: "UD1") ?? ""
         UD2 = UserDefaults.standard.string(forKey: "UD2") ?? ""
