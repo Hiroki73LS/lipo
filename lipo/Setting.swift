@@ -12,8 +12,7 @@ class Cellof: ObservableObject {
     var cellof6 : Int = 0
     
     init(){
-        //セルごとの登録数を取得↓-------------------
-        
+//セルごとの登録数を取得↓-------------------
         let realm = try? Realm()
         cellof0 = realm?.objects(Model.self).count ?? 99
         cellof1 = realm?.objects(Model.self).filter("cells == 0").count ?? 99
@@ -22,22 +21,15 @@ class Cellof: ObservableObject {
         cellof4 = realm?.objects(Model.self).filter("cells == 3").count ?? 99
         cellof5 = realm?.objects(Model.self).filter("cells == 4").count ?? 99
         cellof6 = realm?.objects(Model.self).filter("cells == 5").count ?? 99
-        
-            print("全体:\(String(describing: cellof0))")
-            print("1:\(String(describing: cellof1))")
-            print("2:\(String(describing: cellof2))")
-            print("3:\(String(describing: cellof3))")
-            print("4:\(String(describing: cellof4))")
-            print("5:\(String(describing: cellof5))")
-            print("6:\(String(describing: cellof6))")
-        //セルごとの登録数を取得↑-------------------
+//セルごとの登録数を取得↑-------------------
     }
 }
 
 struct Setting: View {
     
     @ObservedObject var cellof = Cellof()
-    @State private var color = Color.white
+    @State private var color1 = Color.white
+    @State private var color2 = Color.green
     @ObservedObject var profile = UserProfile()
     
     let backGroundColor = LinearGradient(gradient: Gradient(colors: [Color.white, Color.green]), startPoint: .top, endPoint: .bottom)
@@ -52,27 +44,53 @@ struct Setting: View {
             ZStack{
                 backGroundColor.edgesIgnoringSafeArea(.all)
                 VStack{
-                    Text("ColorSetting & Info").font(.largeTitle)
-                    ColorPicker(selection: $color, label: {
-                        Text("SelectColor")
-                    })
-                    .padding()
                     VStack{
-                        Text("全体:\(self.cellof.cellof0)個")
-                        Text("１セル:\(self.cellof.cellof1)個")
-                        Text("２セル:\(self.cellof.cellof2)個")
-                        Text("３セル:\(self.cellof.cellof3)個")
-                        Text("４セル:\(self.cellof.cellof4)個")
-                        Text("５セル:\(self.cellof.cellof5)個")
-                        Text("６セル:\(self.cellof.cellof6)個")
-                    }.font(.title2)
+                        Text("ColorSetting & Info").font(.largeTitle)
+                        ColorPicker(selection: $color1, label: {
+                            Text("Select BackgroundColor(top)").bold()
+                        })
+                        ColorPicker(selection: $color2, label: {
+                            Text("Select BackgroundColor(bottom)").bold()
+                        })}
+                        .padding()
                     Spacer()
+                        .frame(width: 320, height: 100)
+                    HStack{
+                        VStack(alignment: .leading) {
+                            Text("全バッテリー ： ")
+                            Text("　１セル ： ")
+                            Text("　２セル ： ")
+                            Text("　３セル ： ")
+                            Text("　４セル ： ")
+                            Text("　５セル ： ")
+                            Text("　６セル ： ")
+                        }.font(.title)
+                        VStack(alignment: .center) {
+                            Text("\(self.cellof.cellof0)")
+                            Text("\(self.cellof.cellof1)")
+                            Text("\(self.cellof.cellof2)")
+                            Text("\(self.cellof.cellof3)")
+                            Text("\(self.cellof.cellof4)")
+                            Text("\(self.cellof.cellof5)")
+                            Text("\(self.cellof.cellof6)")
+                        }.font(.title)
+                        VStack(alignment: .leading) {
+                            Text("個")
+                            Text("個")
+                            Text("個")
+                            Text("個")
+                            Text("個")
+                            Text("個")
+                            Text("個")
+                        }.font(.title)
+                        Spacer()
+                    }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                    .padding()
+                    Spacer()
+                        .frame(width: 320, height: 200)
                     AdView()
                         .frame(width: 320, height: 50)
-                } .background(NavigationConfigurator { nc in
-                    nc.navigationBar.barTintColor = #colorLiteral(red: 0.9033463001, green: 0.9756388068, blue: 0.9194290638, alpha: 1)
-                    nc.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
-                })
+                }
             }}
     }
 }

@@ -121,7 +121,7 @@ struct EnterView: View {
         return dformat
     }
     
-    let backGroundColor = LinearGradient(gradient: Gradient(colors: [Color.white, Color.green]), startPoint: .top, endPoint: .bottom)
+    let backGroundColor = LinearGradient(gradient: Gradient(colors: [Color(red: 0.5, green: 0.5, blue: 0.5, opacity: 0.5),Color(red: 0.8, green: 1.0, blue: 0.4, opacity: 0.8)]), startPoint: .top, endPoint: .bottom)
     
     init() {
             UITableView.appearance().backgroundColor = .clear
