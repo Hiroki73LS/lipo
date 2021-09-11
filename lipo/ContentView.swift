@@ -120,17 +120,9 @@ struct ContentView: View {
                                         if cellModel.condition == true {
                                             Image(systemName: "battery.100")
                                                 .foregroundColor(.pink)
-                                                .onTapGesture {
-                                                    try? Realm().write {
-//                                                        cellModel.condition = false
-                                                    }}
                                         } else {
                                             Image(systemName: "battery.100")
                                                 .foregroundColor(.secondary)
-                                                .onTapGesture {
-                                                    try? Realm().write {
-//                                                        cellModel.condition = true
-                                                    }}
                                         }
                                     }
                                 }.listRowBackground(Color.clear)
@@ -184,22 +176,6 @@ struct ContentView: View {
         }
     }
 }
-
-
-func rowRemove(offsets: IndexSet) {
-    let ttt = "111"
-    let realm = try! Realm()            // ① realmインスタンスの生成
-    let targetEmployee = realm.objects(Model.self).filter("id == %@", ttt)  // ② 削除したいデータを検索する
-    
-    print(targetEmployee)
-    do{                                 // ③ 部署を更新する
-      try realm.write{
-        realm.delete(targetEmployee)
-      }
-    }catch {
-      print("Error \(error)")
-    }
-            }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

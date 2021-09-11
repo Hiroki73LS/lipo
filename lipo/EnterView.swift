@@ -19,7 +19,6 @@ class UserProfile2: ObservableObject {
     /// 初期化処理
     init() {
         oldcapa = UserDefaults.standard.object(forKey: "oldcapa") as? Int ?? 99
-        print("oldcapa:\(oldcapa)です")
     }
 }
 
@@ -48,7 +47,7 @@ struct ContentViewCellModel {
 }
 
 class viewModel: ObservableObject {
-    
+
     private var ArrayCount :Int = 0
     private var intArray = [Int]()
     var motoArray = Array(1...99)
@@ -72,7 +71,6 @@ class viewModel: ObservableObject {
             intArray.sort()
         }
 //RealmからBatteryNoを取得して配列に格納してソート↑-------------------
-
 //配列から要素のインデックス番号を検索し、該当するインデックス番号の要素を削除↓-------------------
 
         for i in 0 ..< ArrayCount {
@@ -81,9 +79,9 @@ class viewModel: ObservableObject {
                 motoArray.remove(at: firstIndex)
         }
     }
-//        print(motoArray)      // ["A", "B", "C", "D"]
 //配列から要素のインデックス番号を検索し、該当するインデックス番号の要素を削除↑-------------------
-}
+        
+    }
 
     deinit {
         token?.invalidate()
