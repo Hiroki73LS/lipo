@@ -132,7 +132,7 @@ struct ContentView: View {
                             let realm = try? Realm()
                             let index = indexSet.first
                             let target = realm?.objects(Model.self).filter("id = %@", self.model.cellModels[index!].id).first
-                            print(target!)
+//                            print("target:\(target!)")
                             try? realm?.write {
                                 realm?.delete(target!)
                             }

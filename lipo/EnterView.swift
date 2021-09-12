@@ -15,7 +15,7 @@ class Model: Object {
 
 class UserProfile2: ObservableObject {
     /// 前回のバッテリーキャパ
-    @Published var oldcapa: Int
+    @Published var oldcapa: Int = 0
     /// 初期化処理
     init() {
         oldcapa = UserDefaults.standard.object(forKey: "oldcapa") as? Int ?? 99
@@ -92,12 +92,9 @@ struct EnterView: View {
     
     @ObservedObject var moto = viewModel()
     @ObservedObject var profile2 = UserProfile2()
-    
     @ObservedObject var keyboard = KeyboardObserver()
     @State var Cellhairetu = ["1","2","3","4","5","6"]
     @State var batteryNo = 0
-    @Environment(\.managedObjectContext) var viewContext
-    
     @ObservedObject var profile = UserProfile()
     @ObservedObject var model = viewModel()
     @State private var condition = false
@@ -108,10 +105,10 @@ struct EnterView: View {
     @State private var cells = 0
     @State private var isON = false
     @State private var alert1 = false
+
     @Environment(\.presentationMode) var presentationMode
-    
-    @State private var sentakusi = ""
-    
+//    @Environment(\.managedObjectContext) var viewContext
+
     var dateFormat: DateFormatter {
         let dformat = DateFormatter()
         dformat.dateFormat = "yyyy/M/d h:mm"
@@ -191,7 +188,7 @@ struct EnterView: View {
                             print(moto.motoArray[batteryNo])
                             //-書き込み--------------------------
                             UserDefaults.standard.set(profile2.oldcapa, forKey: "oldcapa")
-                            
+
                             let models = Model()
                             models.condition = condition
                             models.batteryNo = moto.motoArray[batteryNo] - 1
@@ -201,13 +198,14 @@ struct EnterView: View {
                             models.isON = isON
                             models.buyDate = buyDate
                             models.useDate = useDate
-                            
+
                             let realm = try? Realm()
                             try? realm?.write {
                                 realm?.add(models)
                             }
-                            //-書き込み--------------------------
+                  //-書き込み--------------------------
                             self.alert1.toggle()
+                            print("add:\(models)")
                         }){
                             Text("Save")
                                 .frame(width: 150, height: 20)
