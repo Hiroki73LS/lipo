@@ -18,7 +18,7 @@ class UserProfile2: ObservableObject {
     @Published var oldcapa: Int = 0
     /// 初期化処理
     init() {
-        oldcapa = UserDefaults.standard.object(forKey: "oldcapa") as? Int ?? 99
+        oldcapa = UserDefaults.standard.object(forKey: "oldcapa") as? Int ?? 100
     }
 }
 
@@ -54,14 +54,17 @@ class viewModel: ObservableObject {
     var motoArray2 = Array(1...99)
     private var sakujyo :Int = 0
     
-    private var token: NotificationToken?
+//    private var token: NotificationToken?
     private var myModelResults = try? Realm().objects(Model.self).sorted(byKeyPath: "batteryNo", ascending: true)
     @Published var cellModels: [ContentViewCellModel] = []
     
     init() {
-        token = myModelResults?.observe { [weak self] _ in
-            self?.cellModels = self?.myModelResults?.map {ContentViewCellModel(id: $0.id, condition: $0.condition, btcapa: $0.btcapa, batteryNo: $0.batteryNo, otherInfo: $0.otherInfo, isON: $0.isON, buyDate: $0.buyDate, useDate: $0.useDate, cells: $0.cells) } ?? []
-        }
+//        token = myModelResults?.observe { [weak self] _ in
+//            self?.cellModels = self?.myModelResults?.map {ContentViewCellModel(id: $0.id, condition: $0.condition, btcapa: $0.btcapa, batteryNo: $0.batteryNo, otherInfo: $0.otherInfo, isON: $0.isON, buyDate: $0.buyDate, useDate: $0.useDate, cells: $0.cells) } ?? []
+//        }
+
+        self.cellModels = self.myModelResults?.map {ContentViewCellModel(id: $0.id, condition: $0.condition, btcapa: $0.btcapa, batteryNo: $0.batteryNo, otherInfo: $0.otherInfo, isON: $0.isON, buyDate: $0.buyDate, useDate: $0.useDate, cells: $0.cells) } ?? []
+
         //RealmからBatteryNoを取得して配列に格納してソート↓-------------------
         let realm = try? Realm()
         let btNo = realm?.objects(Model.self)
@@ -75,7 +78,7 @@ class viewModel: ObservableObject {
         
         for i in 0 ..< ArrayCount {
             sakujyo = intArray[i]
-            if let firstIndex = motoArray.index(of: sakujyo + 1) {
+            if let firstIndex = motoArray.firstIndex(of: sakujyo + 1) {
                 motoArray.remove(at: firstIndex)
             }
         }
@@ -84,7 +87,7 @@ class viewModel: ObservableObject {
     }
     
     deinit {
-        token?.invalidate()
+//        token?.invalidate()
     }
 }
 
