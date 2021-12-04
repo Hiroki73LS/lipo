@@ -54,14 +54,14 @@ class viewModel: ObservableObject {
     var motoArray2 = Array(1...99)
     private var sakujyo :Int = 0
     
-//    private var token: NotificationToken?
+    private var token: NotificationToken?
     private var myModelResults = try? Realm().objects(Model.self).sorted(byKeyPath: "batteryNo", ascending: true)
     @Published var cellModels: [ContentViewCellModel] = []
     
     init() {
-//        token = myModelResults?.observe { [weak self] _ in
-//            self?.cellModels = self?.myModelResults?.map {ContentViewCellModel(id: $0.id, condition: $0.condition, btcapa: $0.btcapa, batteryNo: $0.batteryNo, otherInfo: $0.otherInfo, isON: $0.isON, buyDate: $0.buyDate, useDate: $0.useDate, cells: $0.cells) } ?? []
-//        }
+        token = myModelResults?.observe { [weak self] _ in
+            self?.cellModels = self?.myModelResults?.map {ContentViewCellModel(id: $0.id, condition: $0.condition, btcapa: $0.btcapa, batteryNo: $0.batteryNo, otherInfo: $0.otherInfo, isON: $0.isON, buyDate: $0.buyDate, useDate: $0.useDate, cells: $0.cells) } ?? []
+        }
 
         self.cellModels = self.myModelResults?.map {ContentViewCellModel(id: $0.id, condition: $0.condition, btcapa: $0.btcapa, batteryNo: $0.batteryNo, otherInfo: $0.otherInfo, isON: $0.isON, buyDate: $0.buyDate, useDate: $0.useDate, cells: $0.cells) } ?? []
 
