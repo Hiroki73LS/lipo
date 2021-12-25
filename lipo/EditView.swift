@@ -88,7 +88,6 @@ struct EditView: View {
                         Divider()
                         Button(action: {
                             self.alert = true
-                            //                        self.toSave = true
                             //-書き込み--------------------------
                             let realm = try! Realm()
                             let predicate = NSPredicate(format: "id == %@", id as CVarArg)
@@ -105,24 +104,24 @@ struct EditView: View {
                             }
                             //-書き込み--------------------------
                             
-                            print("\(alert)")
-                            _ = Alert(title: Text("確認"),
-                                      message: Text("Battery No.[ \(batteryNo+1) ]を更新しました。"),
-                                      dismissButton: .default(Text("OK"),
-                                                              action: {
-                                                                condition = false
-                                                                batteryNo = 0
-                                                                isON = false
-                                                                self.alert.toggle()
-                                                                self.presentationMode.wrappedValue.dismiss()
-                                                              }))
-                            
                         }){
                             Text("Save")
                                 .frame(width: 150, height: 20)
                         }
                         .buttonStyle(MyButtonStyle())
-                    }.padding(.horizontal) 
+                        .alert(isPresented: $alert) {
+                            Alert(title: Text("確認"),
+                              message: Text("Battery No.[ \(batteryNo+1) ]を更新しました。"),
+                              dismissButton: .default(Text("OK"),
+                                                      action: {
+                                                        condition = false
+                                                        batteryNo = 0
+                                                        isON = false
+                                                        self.alert.toggle()
+                                                        self.presentationMode.wrappedValue.dismiss()
+                            }))}
+
+                    }.padding(.horizontal)
                     AdView()
                     Spacer()
                         .frame(width: 320, height: 25)

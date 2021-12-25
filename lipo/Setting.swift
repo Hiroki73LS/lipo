@@ -82,7 +82,7 @@ struct Setting: View {
                     Spacer()
                         .frame(width: 320, height: 200)
                     AdView()
-                        .frame(width: 320, height: 50)
+//                        .frame(width: 320, height: 50)
                 }
             }}
     }

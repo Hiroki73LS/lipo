@@ -121,7 +121,7 @@ struct ContentView: View {
                                             Image(systemName: "battery.100")
                                                 .foregroundColor(.pink)
                                         } else {
-                                            Image(systemName: "battery.100")
+                                            Image(systemName: "battery.75")
                                                 .foregroundColor(.secondary)
                                         }
                                     }
