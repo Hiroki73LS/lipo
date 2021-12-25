@@ -5,8 +5,9 @@ import GoogleMobileAds
 
 struct AdView: UIViewRepresentable {
     func makeUIView(context: Context) -> GADBannerView {
-        let banner = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         
+        let banner = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+//        let banner = GADBannerView(adSize: kGADAdSizeBanner)
         //-----------テストデバイス向けのコード↓
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =
             [ "6406920720aeb48222d189ece53650bb" ] // device ID
