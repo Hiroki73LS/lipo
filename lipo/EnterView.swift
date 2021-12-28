@@ -1,5 +1,6 @@
 import SwiftUI
 import RealmSwift
+import GoogleMobileAds
 
 class Model: Object {
     @objc dynamic var id = UUID().uuidString
@@ -61,9 +62,9 @@ class viewModel: ObservableObject {
         token = myModelResults?.observe { [weak self] _ in
             self?.cellModels = self?.myModelResults?.map {ContentViewCellModel(id: $0.id, condition: $0.condition, btcapa: $0.btcapa, batteryNo: $0.batteryNo, otherInfo: $0.otherInfo, isON: $0.isON, buyDate: $0.buyDate, useDate: $0.useDate, cells: $0.cells) } ?? []
         }
-
+        
         self.cellModels = self.myModelResults?.map {ContentViewCellModel(id: $0.id, condition: $0.condition, btcapa: $0.btcapa, batteryNo: $0.batteryNo, otherInfo: $0.otherInfo, isON: $0.isON, buyDate: $0.buyDate, useDate: $0.useDate, cells: $0.cells) } ?? []
-
+        
         //RealmからBatteryNoを取得して配列に格納してソート↓-------------------
         let realm = try? Realm()
         let btNo = realm?.objects(Model.self)
@@ -86,7 +87,6 @@ class viewModel: ObservableObject {
     }
     
     deinit {
-//        token?.invalidate()
     }
 }
 
@@ -107,10 +107,9 @@ struct EnterView: View {
     @State private var cells = 0
     @State private var isON = false
     @State private var alert1 = false
-
+    
     @Environment(\.presentationMode) var presentationMode
-//    @Environment(\.managedObjectContext) var viewContext
-
+    
     var dateFormat: DateFormatter {
         let dformat = DateFormatter()
         dformat.dateFormat = "yyyy/M/d h:mm"
@@ -122,9 +121,8 @@ struct EnterView: View {
     init() {
         UITableView.appearance().backgroundColor = .clear
         UITableViewCell.appearance().backgroundColor = .clear
-        print("前前\(batteryNo)")
         print(moto.motoArray[batteryNo])
-}
+    }
     
     
     
@@ -155,32 +153,38 @@ struct EnterView: View {
                         }.pickerStyle(SegmentedPickerStyle())
                     }.padding(.horizontal)
                     VStack{
-                        Stepper(value: $profile2.oldcapa ,in: 10...6000, step: 10) {
-                            Text("Battery Capacity : \(profile2.oldcapa)mAh" )
-                                .bold()
+                        VStack{
+                            Stepper(value: $profile2.oldcapa ,in: 10...6000, step: 10) {
+                                Text("Battery Capacity : \(profile2.oldcapa)mAh" )
+                                    .bold()
+                            }
+                            Stepper(value: $profile2.oldcapa  ,in: 10...6000, step: 100) {
+                                Text("( Step : 100mAh )")
+                                    .foregroundColor(.orange)
+                                    .bold()
+                            }
+                            Stepper(value: $profile2.oldcapa  ,in: 10...6000, step: 1000) {
+                                Text("( Step : 1000mAh )")
+                                    .foregroundColor(.orange)
+                                    .bold()
+                            }
+                            DatePicker(selection: $buyDate, displayedComponents: .date,
+                                       label: {Text("購入日時").bold()+Text(" (purchase date)").font(.headline)} )
+                            DatePicker(selection: $useDate, displayedComponents: .date,
+                                       label: {Text("使用開始").bold()+Text(" (Start date of use)").bold().font(.subheadline)} )
                         }
-                        Stepper(value: $profile2.oldcapa  ,in: 10...6000, step: 100) {
-                            Text("( Step : 100mAh )")
-                                .foregroundColor(.orange)
-                                .bold()
-                        }
-                        Stepper(value: $profile2.oldcapa  ,in: 10...6000, step: 1000) {
-                            Text("( Step : 1000mAh )")
-                                .foregroundColor(.orange)
-                                .bold()
-                        }
-                        DatePicker(selection: $buyDate, displayedComponents: .date,
-                                   label: {Text("購入日時 (purchase date)").bold()} )
-                        DatePicker(selection: $useDate, displayedComponents: .date,
-                                   label: {Text("使用開始 (Start date of use)").bold()} )
                         HStack{
-                            Text("Battery No.").bold()
+                            Text("Battery No.")
+                                .font(.title)
+                                .bold()
                             Picker(selection: self.$batteryNo, label: Text("BatteryNo")){
                                 ForEach(0 ..< moto.motoArray.count) { num in
-                                    Text("\(self.moto.motoArray[num])").font(.title2)
+                                    Text("\(self.moto.motoArray[num])")
                                 }
-                            }.frame(minWidth: 0, maxWidth: 100, maxHeight: 60)
-                            .clipped()
+                            }.pickerStyle(WheelPickerStyle())
+                                .frame(width: 40, height: 90)
+                                .compositingGroup() // << add this modifier above clipping !!!
+                                .clipped()
                         }
                         TextField("Other info", text: $otherInfo)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -190,7 +194,7 @@ struct EnterView: View {
                             print(moto.motoArray[batteryNo])
                             //-書き込み--------------------------
                             UserDefaults.standard.set(profile2.oldcapa, forKey: "oldcapa")
-
+                            
                             let models = Model()
                             models.condition = condition
                             models.batteryNo = moto.motoArray[batteryNo] - 1
@@ -200,34 +204,35 @@ struct EnterView: View {
                             models.isON = isON
                             models.buyDate = buyDate
                             models.useDate = useDate
-
+                            
                             let realm = try? Realm()
                             try? realm?.write {
                                 realm?.add(models)
                             }
-                  //-書き込み--------------------------
+                            //-書き込み--------------------------
                             self.alert1.toggle()
                             print("add:\(models)")
                         }){
                             Text("Save")
+                                .font(.title)
                                 .frame(width: 150, height: 20)
                         }
                         .buttonStyle(MyButtonStyle())
                         .alert(isPresented: $alert1) {
                             Alert(title: Text("確認"),
-                                  message: Text("\(batteryNo)Battery No.[ \(moto.motoArray[batteryNo]) ]を登録しました。"),
+                                  message: Text("Battery No.[ \(moto.motoArray[batteryNo]) ]を登録しました。"),
                                   dismissButton: .default(Text("OK"),
                                                           action: {
-                        print("後\(batteryNo)")
-                        print(moto.motoArray[batteryNo])
-                                                            condition = false
-                                                            batteryNo = 0
-                                                            isON = false
-                                                            self.presentationMode.wrappedValue.dismiss()
-                                                          }))
+                                print(moto.motoArray[batteryNo])
+                                condition = false
+                                batteryNo = 0
+                                isON = false
+                                self.presentationMode.wrappedValue.dismiss()
+                            }))
                         }
-                    }.padding(.horizontal) 
+                    }.padding(.horizontal)
                     AdView()
+                        .frame(width: 320, height: 50)
                 }.onAppear{
                     self.keyboard.addObserver()
                 }.onDisappear{

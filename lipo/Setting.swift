@@ -1,6 +1,8 @@
 import UIKit
 import SwiftUI
 import RealmSwift
+import GoogleMobileAds
+
 
 class Cellof: ObservableObject {
     
@@ -45,44 +47,52 @@ struct Setting: View {
             ZStack{
                 backGroundColor.edgesIgnoringSafeArea(.all)
                 VStack{
-                    Text("Number of Batteries").font(.largeTitle)
+                    
+                    Text("Number of Batteries")
+                        .font(.largeTitle)
+                    Form {
+                        HStack{
+                            Image(systemName: "battery.75")
+                                .resizable()
+                                .frame(width: 60, height: 30)
+                            Text("１セル　：　\(self.cellof.cellof1)　個")
+                        }
+                        HStack{
+                            Image(systemName: "battery.75")
+                                .resizable()
+                                .frame(width: 60, height: 30)
+                            Text("２セル　：　\(self.cellof.cellof2)　個")
+                        }
+                        HStack{
+                            Image(systemName: "battery.75")
+                                .resizable()
+                                .frame(width: 60, height: 30)
+                            Text("３セル　：　\(self.cellof.cellof3)　個")
+                        }
+                        HStack{
+                            Image(systemName: "battery.75")
+                                .resizable()
+                                .frame(width: 60, height: 30)
+                            Text("４セル　：　\(self.cellof.cellof4)　個")
+                        }
+                        HStack{
+                            Image(systemName: "battery.75")
+                                .resizable()
+                                .frame(width: 60, height: 30)
+                            Text("５セル　：　\(self.cellof.cellof5)　個")
+                        }
+                        HStack{
+                            Image(systemName: "battery.75")
+                                .resizable()
+                                .frame(width: 60, height: 30)
+                            Text("６セル　：　\(self.cellof.cellof6)　個")
+                        }
+                    }
+                    .font(.title)
                     Spacer()
                         .frame(width: 320, height: 100)
-                    HStack{
-                        VStack(alignment: .leading) {
-                            Text("全バッテリー ： ").bold()
-                            Text("　１セル ： ")
-                            Text("　２セル ： ")
-                            Text("　３セル ： ")
-                            Text("　４セル ： ")
-                            Text("　５セル ： ")
-                            Text("　６セル ： ")
-                        }.font(.title)
-                        VStack(alignment: .center) {
-                            Text("\(self.cellof.cellof0)").bold()
-                            Text("\(self.cellof.cellof1)")
-                            Text("\(self.cellof.cellof2)")
-                            Text("\(self.cellof.cellof3)")
-                            Text("\(self.cellof.cellof4)")
-                            Text("\(self.cellof.cellof5)")
-                            Text("\(self.cellof.cellof6)")
-                        }.font(.title)
-                        VStack(alignment: .leading) {
-                            Text("個").bold()
-                            Text("個")
-                            Text("個")
-                            Text("個")
-                            Text("個")
-                            Text("個")
-                            Text("個")
-                        }.font(.title)
-                        Spacer()
-                    }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                    .padding()
-                    Spacer()
-                        .frame(width: 320, height: 200)
                     AdView()
-//                        .frame(width: 320, height: 50)
+                        .frame(width: 320, height: 100)
                 }
             }}
     }
@@ -105,7 +115,7 @@ class UserProfile: ObservableObject {
             UserDefaults.standard.set(UD3, forKey: "UD3")
         }
     }
-    
+
     init() {
         UD1 = UserDefaults.standard.string(forKey: "UD1") ?? ""
         UD2 = UserDefaults.standard.string(forKey: "UD2") ?? ""

@@ -6,8 +6,8 @@ import GoogleMobileAds
 struct AdView: UIViewRepresentable {
     func makeUIView(context: Context) -> GADBannerView {
         
-        let banner = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-//        let banner = GADBannerView(adSize: kGADAdSizeBanner)
+//        let banner = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        let banner = GADBannerView(adSize: kGADAdSizeBanner)
         //-----------テストデバイス向けのコード↓
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =
             [ "6406920720aeb48222d189ece53650bb" ] // device ID
@@ -96,6 +96,9 @@ struct ContentView: View {
                                 NavigationLink(destination: EditView(id: $idDetail, condition: $conditionDetail, btcapa: $btcapaDetail, batteryNo: $batteryNoDetail, otherInfo: $otherInfoDetail, isON: $isONDetail, buyDate: $buyDateDetail, useDate: $useDateDetail, cells: $cellsDetail), isActive: $showAlert) {
                                     HStack{
                                         VStack(alignment:.leading) {
+                                            Spacer().frame(height: 5)
+                                            HStack{
+                                            Spacer().frame(width: 10)
                                             VStack{
                                                 HStack{
                                                     Text("No.\(cellModel.batteryNo + 1)")
@@ -116,6 +119,8 @@ struct ContentView: View {
                                                     Text("使用:\(dateFormat.string(from: cellModel.useDate))")
                                                 }
                                             }.padding(0.0)
+                                            }
+                                            Spacer().frame(height: 5)
                                         }
                                         if cellModel.condition == true {
                                             Image(systemName: "battery.100")
@@ -125,19 +130,22 @@ struct ContentView: View {
                                                 .foregroundColor(.secondary)
                                         }
                                     }
-                                }.listRowBackground(Color.clear)
+                                }
+                                .listRowBackground(Color.clear)
                             }
-                            ).background(Color.clear)
+                            )
+                                .buttonStyle(MyButtonStyle2())
+//                                .background(Color.clear)
                         }
                         .onDelete { indexSet in
                             let realm = try? Realm()
                             let index = indexSet.first
                             let target = realm?.objects(Model.self).filter("id = %@", self.model.cellModels[index!].id).first
-//                            print("target:\(target!)")
                             try? realm?.write {
                                 realm?.delete(target!)
                             }
                         }
+                        .listRowInsets(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))
                         .listRowBackground(Color.clear)
                     }
                     AdView()
@@ -176,6 +184,18 @@ struct ContentView: View {
         }
     }
 }
+
+struct MyButtonStyle2: ButtonStyle {
+  func makeBody(configuration: Self.Configuration) -> some View {
+    configuration.label
+          .frame(maxWidth: .infinity, minHeight: 60)
+          .background(Color.white.opacity(0.9))
+          .cornerRadius(8)
+        .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
+        .opacity(configuration.isPressed ? 0.4 : 1)
+    }
+}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

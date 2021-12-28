@@ -1,5 +1,7 @@
 import SwiftUI
 import RealmSwift
+import GoogleMobileAds
+
 
 struct EditView: View {
     
@@ -77,10 +79,13 @@ struct EditView: View {
                         DatePicker(selection: $useDate, displayedComponents: .date,
                                    label: {Text("使用開始 (Start date of use)").bold()} )
                         HStack{
-                            Text("Battery No.").bold()
+                            Text("Battery No.")
+                                .font(.title)
+                                .bold()
                             Picker(selection: $batteryNo, label: Text("BatteryNo")){
                                 Text("\(batteryNo + 1)")
-                            }.frame(minWidth: 0, maxWidth: 100, maxHeight: 60)
+                            }.pickerStyle(WheelPickerStyle())
+                                .frame(width: 40, height: 90)
                             .clipped()
                         }
                         TextField("Other info", text: $otherInfo)
@@ -106,6 +111,7 @@ struct EditView: View {
                             
                         }){
                             Text("Save")
+                                .font(.title)
                                 .frame(width: 150, height: 20)
                         }
                         .buttonStyle(MyButtonStyle())
@@ -123,6 +129,7 @@ struct EditView: View {
 
                     }.padding(.horizontal)
                     AdView()
+                        .frame(width: 320, height: 50)
                     Spacer()
                         .frame(width: 320, height: 25)
                 }.onAppear{
