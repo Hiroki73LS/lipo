@@ -51,7 +51,6 @@ class viewModel: ObservableObject {
     private var ArrayCount :Int = 0
     private var intArray = [Int]()
     var motoArray = Array(1...99)
-    var motoArray2 = Array(1...99)
     private var sakujyo :Int = 0
     
     private var token: NotificationToken?
@@ -93,7 +92,7 @@ class viewModel: ObservableObject {
 
 struct EnterView: View {
     
-    @ObservedObject var moto = viewModel()
+    @StateObject var moto = viewModel()
     @ObservedObject var profile2 = UserProfile2()
     @ObservedObject var keyboard = KeyboardObserver()
     @State var Cellhairetu = ["1","2","3","4","5","6"]

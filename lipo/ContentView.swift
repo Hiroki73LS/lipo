@@ -107,13 +107,13 @@ struct ContentView: View {
                                                 HStack{
                                                     Text("容量:\(cellModel.btcapa)mhA")
                                                     Spacer()
-                                                    Text("購入日:\(dateFormat.string(from: cellModel.buyDate))")
+                                                    Text("購入:\(dateFormat.string(from: cellModel.buyDate))")
                                                 }
                                                 HStack{
                                                     Text("備考:\(cellModel.otherInfo)")
                                                         .frame(width: 100.0, height: 2.0, alignment: .leading)
                                                     Spacer()
-                                                    Text("使用日:\(dateFormat.string(from: cellModel.useDate))")
+                                                    Text("使用:\(dateFormat.string(from: cellModel.useDate))")
                                                 }
                                             }.padding(0.0)
                                         }
@@ -153,7 +153,7 @@ struct ContentView: View {
                                     Button(action: {
                                         self.isShown2 = true
                                     }) {
-                                        Image(systemName: "gearshape")
+                                        Image(systemName: "info.circle")
                                             .padding()
                                             .background(Color.clear)
                                     } .sheet(isPresented: self.$isShown2) {
