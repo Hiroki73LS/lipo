@@ -182,10 +182,11 @@ struct EnterView: View {
                                     Text("\(self.moto.motoArray[num])")
                                 }
                             }.pickerStyle(WheelPickerStyle())
+                                .fixedSize()
                                 .frame(width: 40, height: 90)
                                 .compositingGroup() // << add this modifier above clipping !!!
                                 .clipped()
-                        }
+                        }.clipped()
                         TextField("Other info", text: $otherInfo)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         Divider()
