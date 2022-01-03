@@ -34,7 +34,7 @@ struct EditView: View {
     let backGroundColor = LinearGradient(gradient: Gradient(colors: [Color.white, Color.green]), startPoint: .top, endPoint: .bottom)
     
     var body: some View {
-        NavigationView{
+//        NavigationView{
             ZStack{
                 backGroundColor.edgesIgnoringSafeArea(.all)
                 VStack {
@@ -84,7 +84,7 @@ struct EditView: View {
                                 .bold()
                             Picker(selection: $batteryNo, label: Text("BatteryNo")){
                                 Text("\(batteryNo + 1)")
-                            }.pickerStyle(WheelPickerStyle())
+                            }.pickerStyle(.menu)
                                 .frame(width: 40, height: 90)
                             .clipped()
                         }
@@ -128,17 +128,16 @@ struct EditView: View {
                             }))}
 
                     }.padding(.horizontal)
+                    Spacer()
                     AdView()
                         .frame(width: 320, height: 50)
-                    Spacer()
-                        .frame(width: 320, height: 25)
                 }.onAppear{
                     self.keyboard.addObserver()
                 }.onDisappear{
                     self.keyboard.removeObserver()
                 }.padding(.bottom, keyboard.keyboardHeight)
                 
-            }}
+            }
     }
 }
 

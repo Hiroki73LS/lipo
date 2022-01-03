@@ -127,10 +127,12 @@ struct EnterView: View {
     
     
     var body: some View {
-        NavigationView{
+//        NavigationView{
             ZStack{
                 backGroundColor.edgesIgnoringSafeArea(.all)
                 VStack {
+                    Spacer()
+                            .frame(width: 320, height: 20)
                     Text("Input screen").font(.largeTitle)
                     HStack{
                         Toggle(isOn: $condition) {
@@ -233,15 +235,15 @@ struct EnterView: View {
                             }))
                         }
                     }.padding(.horizontal)
+                    Spacer()
                     AdView()
-                        .frame(width: 320, height: 50)
-                    Spacer().frame(height: 70)
+                        .frame(width: 320, height: 100)
                 }.onAppear{
                     self.keyboard.addObserver()
                 }.onDisappear{
                     self.keyboard.removeObserver()
                 }.padding(.bottom, keyboard.keyboardHeight)
-            }}
+            }
     }
 }
 

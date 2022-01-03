@@ -7,15 +7,10 @@ struct AdView: UIViewRepresentable {
     func makeUIView(context: Context) -> GADBannerView {
         
         let banner = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-//        let banner = GADBannerView(adSize: kGADAdSizeBanner)
-        //-----------テストデバイス向けのコード↓
-        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =
-            [ "6406920720aeb48222d189ece53650bb" ] // device ID
-        //-----------テストデバイス向けのコード↑
         
-        //以下は、バナー広告向けのテスト専用広告ユニットIDです。自身の広告ユニットIDと置き換えてください。
-        //        banner.adUnitID = "ca-app-pub-3940256099942544/6300978111" //sample広告ID
-        banner.adUnitID = "ca-app-pub-1023155372875273/1422425245" //本物広告ID
+//        banner.adUnitID = "ca-app-pub-1023155372875273/1422425245" //本物広告ID
+        banner.adUnitID = "ca-app-pub-3940256099942544/6300978111" //テストID
+        
         
         banner.rootViewController = UIApplication.shared.windows.first?.rootViewController
         banner.load(GADRequest())
@@ -110,13 +105,13 @@ struct ContentView: View {
                                                 HStack{
                                                     Text("容量:\(cellModel.btcapa)mhA")
                                                     Spacer()
-                                                    Text("購入:\(dateFormat.string(from: cellModel.buyDate))")
+                                                    Text("購入日:\(dateFormat.string(from: cellModel.buyDate))")
                                                 }
                                                 HStack{
                                                     Text("備考:\(cellModel.otherInfo)")
                                                         .frame(width: 100.0, height: 2.0, alignment: .leading)
                                                     Spacer()
-                                                    Text("使用:\(dateFormat.string(from: cellModel.useDate))")
+                                                    Text("使用日:\(dateFormat.string(from: cellModel.useDate))")
                                                 }
                                             }.padding(0.0)
                                             }

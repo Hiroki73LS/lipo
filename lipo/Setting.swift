@@ -43,11 +43,11 @@ struct Setting: View {
     }
     
     var body: some View {
-        NavigationView {
             ZStack{
                 backGroundColor.edgesIgnoringSafeArea(.all)
                 VStack{
-                    
+                Spacer()
+                        .frame(width: 320, height: 50)
                     Text("Number of Batteries")
                         .font(.largeTitle)
                     Form {
@@ -89,13 +89,12 @@ struct Setting: View {
                         }
                     }
                     .font(.title)
-                    Spacer()
-                        .frame(width: 320, height: 100)
                     AdView()
-                        .frame(width: 320, height: 100)
+                        .frame(width: 320, height: 250)
+                    Spacer()
                 }
             }}
-    }
+    
 }
 
 
