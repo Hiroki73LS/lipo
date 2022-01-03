@@ -181,9 +181,10 @@ struct EnterView: View {
                                 ForEach(0 ..< moto.motoArray.count) { num in
                                     Text("\(self.moto.motoArray[num])")
                                 }
-                            }.pickerStyle(WheelPickerStyle())
+                            }.pickerStyle(.menu)
                                 .fixedSize()
-                                .frame(width: 40, height: 90)
+                                .frame(width: 60, height: 32)
+                                .background(Color(.sRGB, white: 0.5, opacity: 0.1))
                                 .compositingGroup() // << add this modifier above clipping !!!
                                 .clipped()
                         }.clipped()
@@ -234,6 +235,7 @@ struct EnterView: View {
                     }.padding(.horizontal)
                     AdView()
                         .frame(width: 320, height: 50)
+                    Spacer().frame(height: 70)
                 }.onAppear{
                     self.keyboard.addObserver()
                 }.onDisappear{
