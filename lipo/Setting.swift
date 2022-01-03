@@ -35,7 +35,7 @@ struct Setting: View {
     @State var color2 = Color.green
     @ObservedObject var profile = UserProfile()
     
-    let backGroundColor = LinearGradient(gradient: Gradient(colors: [Color.white, Color.green]), startPoint: .top, endPoint: .bottom)
+    let backGroundColor = LinearGradient(gradient: Gradient(colors: [Color.white, Color.orange.opacity(0.7)]), startPoint: .top, endPoint: .bottom)
     
     init() {
         UITableView.appearance().backgroundColor = .clear
@@ -52,39 +52,39 @@ struct Setting: View {
                         .font(.largeTitle)
                     Form {
                         HStack{
-                            Image(systemName: "battery.75")
+                            Image("1")
                                 .resizable()
-                                .frame(width: 60, height: 30)
+                                .frame(width: 40, height: 30)
                             Text("１セル　：　\(self.cellof.cellof1)　個")
                         }
                         HStack{
-                            Image(systemName: "battery.75")
+                            Image("2")
                                 .resizable()
-                                .frame(width: 60, height: 30)
+                                .frame(width: 40, height: 30)
                             Text("２セル　：　\(self.cellof.cellof2)　個")
                         }
                         HStack{
-                            Image(systemName: "battery.75")
+                            Image("3")
                                 .resizable()
-                                .frame(width: 60, height: 30)
+                                .frame(width: 40, height: 30)
                             Text("３セル　：　\(self.cellof.cellof3)　個")
                         }
                         HStack{
-                            Image(systemName: "battery.75")
+                            Image("4")
                                 .resizable()
-                                .frame(width: 60, height: 30)
+                                .frame(width: 40, height: 30)
                             Text("４セル　：　\(self.cellof.cellof4)　個")
                         }
                         HStack{
-                            Image(systemName: "battery.75")
+                            Image("5")
                                 .resizable()
-                                .frame(width: 60, height: 30)
+                                .frame(width: 40, height: 30)
                             Text("５セル　：　\(self.cellof.cellof5)　個")
                         }
                         HStack{
-                            Image(systemName: "battery.75")
+                            Image("6")
                                 .resizable()
-                                .frame(width: 60, height: 30)
+                                .frame(width: 40, height: 30)
                             Text("６セル　：　\(self.cellof.cellof6)　個")
                         }
                     }

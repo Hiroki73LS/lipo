@@ -31,7 +31,7 @@ struct EditView: View {
         return dformat
     }
     
-    let backGroundColor = LinearGradient(gradient: Gradient(colors: [Color.white, Color.green]), startPoint: .top, endPoint: .bottom)
+    let backGroundColor = LinearGradient(gradient: Gradient(colors: [Color.white, Color.orange.opacity(0.7)]), startPoint: .top, endPoint: .bottom)
     
     var body: some View {
 //        NavigationView{

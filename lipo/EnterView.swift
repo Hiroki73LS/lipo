@@ -51,7 +51,7 @@ class viewModel: ObservableObject {
     
     private var ArrayCount :Int = 0
     private var intArray = [Int]()
-    var motoArray = Array(1...99)
+    var motoArray = Array(1...30)
     private var sakujyo :Int = 0
     
     private var token: NotificationToken?
@@ -116,7 +116,7 @@ struct EnterView: View {
         return dformat
     }
     
-    let backGroundColor = LinearGradient(gradient: Gradient(colors: [Color.white, Color.green]), startPoint: .top, endPoint: .bottom)
+    let backGroundColor = LinearGradient(gradient: Gradient(colors: [Color.white, Color.orange.opacity(0.7)]), startPoint: .top, endPoint: .bottom)
     
     init() {
         UITableView.appearance().backgroundColor = .clear

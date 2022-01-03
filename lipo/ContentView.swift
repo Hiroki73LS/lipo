@@ -8,8 +8,8 @@ struct AdView: UIViewRepresentable {
         
         let banner = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         
-//        banner.adUnitID = "ca-app-pub-1023155372875273/1422425245" //本物広告ID
-        banner.adUnitID = "ca-app-pub-3940256099942544/6300978111" //テストID
+        banner.adUnitID = "ca-app-pub-1023155372875273/1422425245" //本物広告ID
+//        banner.adUnitID = "ca-app-pub-3940256099942544/6300978111" //テストID
         
         
         banner.rootViewController = UIApplication.shared.windows.first?.rootViewController
@@ -61,7 +61,7 @@ struct ContentView: View {
         return dformat
     }
     
-    let backGroundColor = LinearGradient(gradient: Gradient(colors: [Color.white, Color.green]), startPoint: .top, endPoint: .bottom)
+    let backGroundColor = LinearGradient(gradient: Gradient(colors: [Color.white, Color.orange.opacity(0.7)]), startPoint: .top, endPoint: .bottom)
     
     init() {
         UITableView.appearance().backgroundColor = .clear
