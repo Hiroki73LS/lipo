@@ -92,7 +92,6 @@ struct EditView: View {
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         Divider()
                         Button(action: {
-                            self.alert = true
                             //-書き込み--------------------------
                             let realm = try! Realm()
                             let predicate = NSPredicate(format: "id == %@", id as CVarArg)
@@ -108,7 +107,11 @@ struct EditView: View {
                                 results?.useDate = useDate
                             }
                             //-書き込み--------------------------
-                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                              //処理したいコードを記述
+                                self.alert = true
+                            }
+
                         }){
                             Text("Save")
                                 .font(.title)
