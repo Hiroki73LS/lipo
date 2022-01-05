@@ -179,16 +179,21 @@ struct EnterView: View {
                             Text("Battery No.")
                                 .font(.title)
                                 .bold()
-                            Picker(selection: self.$batteryNo, label: Text("BatteryNo")){
-                                ForEach(0 ..< moto.motoArray.count) { num in
-                                    Text("\(self.moto.motoArray[num])")
-                                }
-                            }.pickerStyle(.menu)
-                                .fixedSize()
-                                .frame(width: 60, height: 32)
-                                .background(Color(.sRGB, white: 0.5, opacity: 0.1))
-                                .compositingGroup() // << add this modifier above clipping !!!
-                                .clipped()
+                            ZStack{
+                                Text("\(self.moto.motoArray[batteryNo])")
+                                    .font(.title)
+                                Picker(selection: self.$batteryNo, label: Text("BatteryNo")){
+                                    ForEach(0 ..< moto.motoArray.count) { num in
+                                        Text("\(self.moto.motoArray[num])")
+                                    }
+                                }.pickerStyle(.menu)
+                                    .accentColor(Color.clear)
+                                    .fixedSize()
+                                    .frame(width: 60, height: 32)
+                                    .background(Color(.sRGB, white: 0.5, opacity: 0.1))
+                                    .compositingGroup() // << add this modifier above clipping !!!
+                                    .clipped()
+                            }
                         }.clipped()
                         TextField("Other info", text: $otherInfo)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -229,9 +234,12 @@ struct EnterView: View {
                                                           action: {
                                 print(moto.motoArray[batteryNo])
                                 condition = false
-                                batteryNo = 0
                                 isON = false
                                 self.presentationMode.wrappedValue.dismiss()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                  //処理したいコードを記述
+                                    batteryNo = 0
+                                }
                             }))
                         }
                     }.padding(.horizontal)

@@ -82,11 +82,16 @@ struct EditView: View {
                             Text("Battery No.")
                                 .font(.title)
                                 .bold()
+                            ZStack{
+                                Text("\(batteryNo + 1)")
+                                    .font(.title)
                             Picker(selection: $batteryNo, label: Text("BatteryNo")){
                                 Text("\(batteryNo + 1)")
                             }.pickerStyle(.menu)
+                                    .accentColor(Color.clear)
                                 .frame(width: 40, height: 90)
                             .clipped()
+                            }
                         }
                         TextField("Other info", text: $otherInfo)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
