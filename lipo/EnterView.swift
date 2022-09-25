@@ -182,7 +182,7 @@ struct EnterView: View {
                             ZStack{
                                 Text("\(self.moto.motoArray[batteryNo])")
                                     .font(.title)
-                                Picker(selection: self.$batteryNo, label: Text("BatteryNo")){
+                                Picker(selection: self.$batteryNo, label: Text("")){
                                     ForEach(0 ..< moto.motoArray.count) { num in
                                         Text("\(self.moto.motoArray[num])")
                                     }

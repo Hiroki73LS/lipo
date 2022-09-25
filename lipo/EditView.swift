@@ -85,7 +85,7 @@ struct EditView: View {
                             ZStack{
                                 Text("\(batteryNo + 1)")
                                     .font(.title)
-                            Picker(selection: $batteryNo, label: Text("BatteryNo")){
+                            Picker(selection: $batteryNo, label: Text("")){
                                 Text("\(batteryNo + 1)")
                             }.pickerStyle(.menu)
                                     .accentColor(Color.clear)

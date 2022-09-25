@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../../../Downloads/ImplementingAStoreInYourAppUsingTheStoreKitAPI/SKDemo/Products.storekit">
+   </FileRef>
+   <FileRef
       location = "group:/Users/hayashi/Desktop/code/lipo/lipo.xcodeproj">
    </FileRef>
    <FileRef

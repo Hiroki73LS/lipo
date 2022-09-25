@@ -50,6 +50,9 @@
             ReferencedContainer = "container:lipo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <StoreKitConfigurationFileReference
+         identifier = "../../../../Downloads/ImplementingAStoreInYourAppUsingTheStoreKitAPI/SKDemo/Products.storekit">
+      </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
